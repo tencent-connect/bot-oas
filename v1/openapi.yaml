@@ -48,15 +48,277 @@ paths:
       summary: 获取当前用户详情
       description: 获取当前用户详情
       operationId: get_at_me
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/user/me.html
       responses:
-        default:
+        200:
           description: User 对象
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+  /users/@me/guilds:
+    get:
+      tags:
+        - user
+      summary: 获取用户频道列表
+      description: 获取用户频道列表
+      operationId: get_at_me_guilds
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/user/guilds.html
+      parameters:
+        - name: before
+          description: >
+            读此 guild id 之前的数据。
+            before 设置时， 先反序，再分页
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: after
+          description: >
+            读此 guild id 之后的数据。
+            after 和 before 同时设置时， after 参数无效
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          description: >
+            每次拉取多少条数据。
+            默认 100, 最大 100
+          in: query
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            minimum: 1
+            default: 100
+      responses:
+        200:
+          description: Guild 对象数组
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Guild'
+  /guilds/{guild_id}:
+    get:
+      tags:
+        - guilds
+      summary: 获取频道详情
+      description: 获取频道详情
+      operationId: get_guilds_guild_id
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/get_guild.html
+      parameters:
+        - name: guild_id
+          description: 频道 id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: int64
+      responses:
+        200:
+          description: Guild 对象
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guild'
+  /guilds/{guild_id}/channels:
+    get:
+      tags:
+        - channels
+      summary: 获取子频道列表
+      description: 获取子频道列表
+      operationId: get_guilds_guild_id_channels
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/get_channels.html
+      parameters:
+        - name: guild_id
+          description: 频道 id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: int64
+      responses:
+        200:
+          description: Channel 对象数组
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Channel'
+    post:
+      tags:
+        - channels
+      summary: 创建子频道
+      description: 创建子频道
+      operationId: post_guilds_guild_id_channels
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/post_channels.html
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 子频道名称
+                type:
+                  $ref: '#/components/schemas/ChannelType'
+                sub_type:
+                  $ref: '#/components/schemas/ChannelSubType'
+                position:
+                  type: integer
+                  description: >
+                    排序值
+                      * postiton 从 1 开始
+                      * 当子频道类型为 子频道分组（ChannelType=4）时，由于 position 1 被未分组占用，所以 position 只能从 2 开始
+                      * 如果不传默认追加到分组下最后一个
+                      * 如果填写一个已经存在的值，那么会插入在原来的元素之前
+                      * 如果填写一个较大值，与不填是相同的表现，同时存储的值会根据真实的 position 进行重新计算，并不会直接使用传入的值
+                  minimum: 1
+                parent_id:
+                  type: string
+                  description: 所属分组 id，仅对子频道有效
+                  format: int64
+                private_type:
+                  $ref: '#/components/schemas/PrivateType'
+                private_user_ids:
+                  type: array
+                  description: 子频道私密类型成员 id
+                  items:
+                    type: string
+                    format: int64
+                speak_permission:
+                  $ref: '#/components/schemas/SpeakPermission'
+                application_id:
+                  $ref: '#/components/schemas/ApplicationId'
+              required:
+                - name
+        required: true
+      parameters:
+        - name: guild_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+  /channels/{channel_id}:
+    get:
+      tags:
+        - channels
+      summary: 获取子频道详情
+      description: 获取子频道详情
+      operationId: get_channels_channel_id
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/get_channel.html
+      parameters:
+        - name: channel_id
+          description: 子频道 id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: int64
+      responses:
+        200:
+          description: Channel 对象
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+    patch:
+      tags:
+        - channels
+      summary: 修改子频道
+      description: 修改子频道
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/patch_channel.html
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 子频道名称
+                type:
+                  $ref: '#/components/schemas/ChannelType'
+                position:
+                  type: integer
+                  description: >
+                    排序值
+                      * postiton 从 1 开始
+                      * 当子频道类型为 子频道分组（ChannelType=4）时，由于 position 1 被未分组占用，所以 position 只能从 2 开始
+                      * 如果不传默认追加到分组下最后一个
+                      * 如果填写一个已经存在的值，那么会插入在原来的元素之前
+                      * 如果填写一个较大值，与不填是相同的表现，同时存储的值会根据真实的 position 进行重新计算，并不会直接使用传入的值
+                  minimum: 1
+                parent_id:
+                  type: string
+                  description: 所属分组 id，仅对子频道有效
+                  format: int64
+                private_type:
+                  $ref: '#/components/schemas/PrivateType'
+                speak_permission:
+                  $ref: '#/components/schemas/SpeakPermission'
+        required: true
+      parameters:
+        - name: channel_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Channel'
+                properties:
+                  private_user_ids:
+                    type: array
+                    items:
+                      type: string
+                      format: int64
+    delete:
+      tags:
+        - channels
+      summary: 删除子频道
+      description: 删除子频道
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/delete_channel.html
+      parameters:
+        - name: channel_id
+          description: 子频道 id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: int64
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json: {}
 
-# objects defined             
+# objects defined
 components:
   schemas:
     User:
@@ -81,10 +343,161 @@ components:
         union_user_account:
           type: string
           description: 机器人关联的互联应用的用户信息，与union_openid关联的应用是同一个。如需申请，请联系平台运营人员。
+      required:
+        - id
+        - username
+        - avatar
+        - bot
+    Guild:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 频道 id
+          format: int64
+        name:
+          type: string
+          description: 频道名称
+        icon:
+          type: string
+          description: 频道头像地址
+        owner_id:
+          type: string
+          description: 创建人用户 id
+          format: int64
+        owner:
+          type: boolean
+          description: 当前人是否是创建人
+        member_count:
+          type: integer
+          description: 成员数
+        max_members:
+          type: integer
+          description: 最大成员数
+        description:
+          type: string
+          description: 描述
+        joined_at:
+          type: string
+          description: 加入时间
+          format: date-time
+      required:
+        - id
+        - name
+        - icon
+        - owner_id
+        - owner
+        - member_count
+        - max_members
+        - joined_at
+    Channel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 子频道 id
+          format: int64
+        guild_id:
+          type: string
+          description: 频道 id
+          format: int64
+        name:
+          type: string
+          description: 子频道名称
+        type:
+          $ref: '#/components/schemas/ChannelType'
+        sub_type:
+          $ref: '#/components/schemas/ChannelSubType'
+        position:
+          type: integer
+          description: >
+            排序值
+              * postiton 从 1 开始
+              * 当子频道类型为 子频道分组（ChannelType=4）时，由于 position 1 被未分组占用，所以 position 只能从 2 开始
+              * 如果不传默认追加到分组下最后一个
+              * 如果填写一个已经存在的值，那么会插入在原来的元素之前
+              * 如果填写一个较大值，与不填是相同的表现，同时存储的值会根据真实的 position 进行重新计算，并不会直接使用传入的值
+          minimum: 1
+        parent_id:
+          type: string
+          description: 所属分组 id，仅对子频道有效
+          format: int64
+        owner_id:
+          type: string
+          description: 创建人用户 id
+          format: int64
+        private_type:
+          $ref: '#/components/schemas/PrivateType'
+        speak_permission:
+          $ref: '#/components/schemas/SpeakPermission'
+        application_id:
+          $ref: '#/components/schemas/ApplicationId'
+      required:
+        - id
+        - guild_id
+        - name
+        - type
+        - sub_type
+        - position
+        - parent_id
+        - owner_id
+    ChannelType:
+      type: integer
+      description: >
+        子频道类型:
+          * 0: 文字子频道
+          * 1: 保留，不可用
+          * 2: 语音子频道
+          * 3: 保留，不可用
+          * 4: 子频道分组
+          * 10005: 直播子频道
+          * 10006: 应用子频道
+          * 10007: 论坛子频道
+      enum: [0, 1, 2, 3, 4, 10005, 10006, 10007]
+    ChannelSubType:
+      type: integer
+      description: >
+        子频道子类型
+        目前只有 文字子频道 具有 ChannelSubType 二级分类
+          * 0: 闲聊
+          * 1: 公告
+          * 2: 攻略
+          * 3: 开黑
+      enum: [0, 1, 2, 3]
+    PrivateType:
+      type: integer
+      description: >
+        子频道私密类型
+          * 0: 公开频道
+          * 1: 群主管理员可见
+          * 2: 群主管理员+指定成员，可使用 修改子频道权限接口 指定成员
+      enum: [0, 1, 2]
+    SpeakPermission:
+      type: integer
+      description: >
+        子频道发言权限
+          * 1: 群主管理员可见
+          * 2: 群主管理员+指定成员，可使用 修改子频道权限接口 指定成员
+      enum: [1, 2]
+    ApplicationId:
+      type: string
+      description: >
+        用于标识应用子频道应用类型，仅应用子频道时会使用该字段
+          * 1000000: 王者开黑大厅
+          * 1000001: 互动小游戏
+          * 1000010: 腾讯投票
+          * 1000051: 飞车开黑大厅
+          * 1000050: 日程提醒
+          * 1000070: CoDM 开黑大厅
+          * 1010000: 和平精英开黑大厅
+      enum: [1000000, 1000001, 1000010, 1000051, 1000050, 1000070, 1010000]
   securitySchemes:
     bot_auth:
-      description: 机器人 API 鉴权，格式为 {appID}.{appToken}
+      description: 机器人 API 鉴权，格式为 `Bot {appID}.{appToken}`
       type: apiKey
       name: Authorization
       in: header
-
+    bearer_auth:
+      description: 用户 OAUTH2.0 鉴权，格式为 `Bearer {oauthToken}`
+      type: http
+      scheme: bearer
