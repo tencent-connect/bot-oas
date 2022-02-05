@@ -83,7 +83,7 @@ components:
           description: 机器人关联的互联应用的用户信息，与union_openid关联的应用是同一个。如需申请，请联系平台运营人员。
   securitySchemes:
     bot_auth:
-      description: 机器人 API 鉴权，格式为 {appID}.{appToken}
+      description: 机器人 API 鉴权，格式为 `Bot {appID}.{appToken}`
       type: apiKey
       name: Authorization
       in: header
