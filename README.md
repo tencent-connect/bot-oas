@@ -4,6 +4,8 @@ OpenAPI Specification V3 for Bot OpenAPI
 
 https://tencent-connect.github.io/bot-oas/
 
+https://app.swaggerhub.com/apis/QQ_channel/QQ_bot/1.0.0
+
 ## Online OAS Editor
 
 * [Swagger Editor](https://editor.swagger.io/)
