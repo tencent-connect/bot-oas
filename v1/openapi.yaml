@@ -1,12 +1,13 @@
 openapi: 3.0.0
 info:
-  title: QQ机器人OpenAPI
-  description: QQ机器人OpenAPI
+  title: QQ机器人开放平台
+  description: QQ频道机器人OpenAPI
   version: 1.0.0
-  termsOfService: https://bot.q.qq.com/
+  termsOfService: www.qq.com
   contact:
     name: ''
     url: www.qq.com
+    email: donhu@tencent.com
 servers:
   - url: 'https://api.sgroup.qq.com'
     description: 正式环境
@@ -133,7 +134,8 @@ paths:
   /users/@me/guilds:
     get:
       summary: 获取用户频道列表
-      description: 用于获取当前用户（机器人）所加入的频道列表，支持分页，参数 before、after 同时存在时，以 before 为准。
+      description: >
+        用于获取当前用户（机器人）所加入的频道列表，支持分页，参数 before、after 同时存在时，以 before 为准。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/user/guilds.html'
       parameters:
@@ -206,11 +208,11 @@ paths:
       description: |-
         用于在 guild_id 指定的频道下创建一个子频道。
 
-        要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
-        创建成功后，返回创建成功的子频道对象，同时会触发一个频道创建的事件通知。
+          * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 创建成功后，返回创建成功的子频道对象，同时会触发一个频道创建的事件通知。
 
-        公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。
-        注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。
+          * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
+          * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: >-
           https://bot.q.qq.com/wiki/develop/api/openapi/channel/post_channels.html
@@ -277,11 +279,11 @@ paths:
       description: |-
         用于修改 channel_id 指定的子频道的信息。
 
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
-        修改成功后，会触发子频道更新事件。
+          * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 修改成功后，会触发子频道更新事件。
 
-        公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。
-        注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。
+          * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
+          * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: >-
           https://bot.q.qq.com/wiki/develop/api/openapi/channel/patch_channel.html
@@ -316,11 +318,11 @@ paths:
       summary: 删除子频道
       description: >-
         用于删除 channel_id 指定的子频道。
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
-        修改成功后，会触发子频道删除事件。
+          * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 修改成功后，会触发子频道删除事件。
 
-        公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。
-        注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。
+          * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
+          * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel/delete_channel.html'
       parameters:
@@ -346,8 +348,8 @@ paths:
       description: >-
         用于获取 guild_id 指定的频道中所有成员的详情列表，支持分页。
 
-        公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。
-        注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。
+          * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
+          * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/member/get_members.html'
       parameters:
@@ -424,12 +426,12 @@ paths:
       description: >-
         用于删除 guild_id 指定的频道下的成员 user_id。
 
-        需要使用的 token 对应的用户具备踢人权限。如果是机器人，要求被添加为管理员。
-        操作成功后，会触发频道成员删除事件。
-        无法移除身份为管理员的成员
+          * 需要使用的 token 对应的用户具备踢人权限。如果是机器人，要求被添加为管理员。
+          * 操作成功后，会触发频道成员删除事件。
+          * 无法移除身份为管理员的成员
 
-        公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。
-        注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。
+          * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
+          * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/member/delete_member.html'
       parameters:
@@ -508,8 +510,8 @@ paths:
       description: >-
         用于在guild_id 指定的频道下创建一个身份组。
 
-        需要使用的 token 对应的用户具备创建身份组权限。如果是机器人，要求被添加为管理员。
-        参数为非必填，但至少需要传其中之一，默认为空或 0。
+          * 需要使用的 token 对应的用户具备创建身份组权限。如果是机器人，要求被添加为管理员。
+          * 参数为非必填，但至少需要传其中之一，默认为空或 0。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/post_guild_role.html'
       parameters:
@@ -563,8 +565,8 @@ paths:
       description: >-
         用于修改频道 guild_id 下 role_id 指定的身份组。
 
-        需要使用的 token 对应的用户具备修改身份组权限。如果是机器人，要求被添加为管理员。
-        接口会修改传入的字段，不传入的默认不会修改，至少要传入一个参数。
+          * 需要使用的 token 对应的用户具备修改身份组权限。如果是机器人，要求被添加为管理员。
+          * 接口会修改传入的字段，不传入的默认不会修改，至少要传入一个参数。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_role.html'
       parameters:
@@ -624,7 +626,7 @@ paths:
       description: >-
         用于删除频道guild_id下 role_id 对应的身份组。
 
-        需要使用的 token 对应的用户具备删除身份组权限。如果是机器人，要求被添加为管理员。
+        * 需要使用的 token 对应的用户具备`删除身份组权限`。如果是机器人，要求被添加为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/delete_guild_role.html'
       parameters:
@@ -656,8 +658,8 @@ paths:
       description: >-
         用于将频道guild_id下的用户 user_id 添加到身份组 role_id 。
 
-        需要使用的 token 对应的用户具备增加身份组成员权限。如果是机器人，要求被添加为管理员。
-        如果要增加的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
+          * 需要使用的 token 对应的用户具备增加身份组成员权限。如果是机器人，要求被添加为管理员。
+          * 如果要增加的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/put_guild_member_role.html'
       parameters:
@@ -703,8 +705,8 @@ paths:
       description: >-
         用于将 用户 user_id 从 频道 guild_id 的 role_id 身份组中移除。
 
-        需要使用的 token 对应的用户具备删除身份组成员权限。如果是机器人，要求被添加为管理员。
-        如果要删除的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
+          * 需要使用的 token 对应的用户具备删除身份组成员权限。如果是机器人，要求被添加为管理员。
+          * 如果要删除的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/delete_guild_member_role.html'
       parameters:
@@ -751,8 +753,8 @@ paths:
       description: >
         用于获取 子频道channel_id 下用户 user_id 的权限。
 
-        获取子频道用户权限。
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 获取子频道用户权限。
+          * 要求操作人具有`管理子频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/get_channel_permissions.html'
       parameters:
@@ -787,9 +789,9 @@ paths:
       description: >
         用于修改子频道 channel_id 下用户 user_id 的权限。
 
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
-        参数包括add和remove两个字段，分别表示授予的权限以及删除的权限。要授予用户权限即把add对应位置 1，删除用户权限即把remove对应位置 1。当两个字段同一位都为 1，表现为删除权限。
-        本接口不支持修改可管理子频道权限。
+          * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 参数包括add和remove两个字段，分别表示授予的权限以及删除的权限。要授予用户权限即把add对应位置 1，删除用户权限即把remove对应位置 1。当两个字段同一位都为 1，表现为删除权限。
+          * `本接口不支持修改可管理子频道权限。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/put_channel_permissions.html'
       parameters:
@@ -833,7 +835,7 @@ paths:
       description: >
         用于获取子频道 channel_id 下身份组 role_id 的权限。
 
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+        * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/get_channel_roles_permissions.html'
       parameters:
@@ -862,13 +864,15 @@ paths:
         '500':
           description: 处理失败
       tags:
-        - 子频道API
+        - 子频道权限API
     put:
-      summary: 获取子频道身份组权限
+      summary: 修改子频道身份组权限
       description: >
-        用于获取子频道 channel_id 下身份组 role_id 的权限。
+        用于修改子频道 channel_id 下身份组 role_id 的权限。
 
-        要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+        * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
+        * 参数包括add和remove两个字段，分别表示授予的权限以及删除的权限。要授予身份组权限即把add对应位置 1，删除身份组权限即把remove对应位置 1。当两个字段同一位都为 1，表现为删除权限。
+        * `本接口不支持修改可管理子频道权限。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/put_channel_roles_permissions.html'
       parameters:
@@ -898,18 +902,14 @@ paths:
                   type: string
                   description: 字符串形式的位图表示删除用户的权限
       responses:
-        '200':
+        '204':
           description: 成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChannelPermissions'
         '401':
           description: 认证失败
         '500':
           description: 处理失败
       tags:
-        - 子频道API
+        - 子频道权限API
   /channels/{channel_id}/messages/{message_id}:
     get:
       summary: 获取指定消息
@@ -949,13 +949,14 @@ paths:
       description: > 
         用于向 channel_id 指定的子频道发送消息。
 
-        要求操作人在该子频道具有发送消息的权限。
-        主动推送消息，默认每天往每个频道可推送的消息数是 20 条，超过会被限制。
-        主动推送消息在每个频道中，每天可以往 2 个子频道推送消息。超过后会被限制。
-        不论主动消息还是被动消息，在一个子频道中，每 1s 只能发送 5 条消息。
-        被动回复消息有效期为 5 分钟。超时会报错。
-        发送消息接口要求机器人接口需要连接到 websocket 上保持在线状态
-        有关主动消息审核，可以通过 Intents 中审核事件 MESSAGE_AUDIT 返回 MessageAudited 对象获取结果。
+          * 要求操作人在该子频道具有发送消息的权限。
+          * 主动推送消息，默认每天往每个频道可推送的消息数是 `20` 条，超过会被限制。
+          * 主动推送消息在每个频道中，每天可以往 `2` 个子频道推送消息。超过后会被限制。
+          * 不论主动消息还是被动消息，在一个子频道中，每 `1s` 只能发送 `5` 条消息。
+          * 被动回复消息有效期为 `5` 分钟。超时会报错。
+          * 发送消息接口要求机器人接口需要连接到 websocket 上保持在线状态
+          * 有关主动消息审核，可以通过 Intents 中审核事件 MESSAGE_AUDIT 返回 MessageAudited 对象获取结果。
+      
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/message/post_messages.html'
       parameters:
@@ -991,8 +992,8 @@ paths:
       description: >
         用于机器人和在同一个频道内的成员创建私信会话。
 
-        机器人和用户存在共同频道才能创建私信会话。
-        创建成功后，返回创建成功的频道 id ，子频道 id 和创建时间。
+          * 机器人和用户存在共同频道才能创建私信会话。
+          * 创建成功后，返回创建成功的频道 id ，子频道 id 和创建时间。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/dms/post_dms.html'
       
@@ -1032,10 +1033,10 @@ paths:
       description: >
         用于发送私信消息，前提是已经创建了私信会话。
 
-        私信的 guild_id 在创建私信会话时以及私信消息事件中获取。
-        私信场景下，每个机器人每天可以对一个用户发 2 条主动消息。
-        私信场景下，每个机器人每天累计可以发 200 条主动消息。
-        私信场景下，被动消息没有条数限制。
+          * 私信的 guild_id 在创建私信会话时以及私信消息事件中获取。
+          * 私信场景下，每个机器人每天可以对一个用户发 `2` 条主动消息。
+          * 私信场景下，每个机器人每天累计可以发 `200` 条主动消息。
+          * 私信场景下，被动消息没有条数限制。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/dms/post_dms_messages.html'
       parameters:
@@ -1073,9 +1074,9 @@ paths:
       description: >
         用于将频道的全体成员（非管理员）禁言。
 
-        需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
-        该接口同样可用于解除禁言，具体使用见解除全员禁言。
-        该接口同样支持解除全员禁言，将mute_end_timestamp或mute_seconds传值为字符串'0'即可。
+          * 需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
+          * 该接口同样可用于解除禁言，具体使用见解除全员禁言。
+          * `该接口同样支持解除全员禁言，将mute_end_timestamp或mute_seconds传值为字符串'0'即可`。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_mute.html'
       parameters:
@@ -1114,8 +1115,8 @@ paths:
       description: >
         用于禁言频道 guild_id 下的成员 user_id。
 
-        需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
-        该接口同样可用于解除禁言，具体使用见解除指定成员禁言。
+          * 需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
+          * `该接口同样可用于解除禁言，具体使用见解除指定成员禁言`。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_member_mute.html'
       parameters:
@@ -1203,7 +1204,7 @@ paths:
       description: >
         用于删除频道 guild_id 下 message_id 指定的全局公告。
 
-        message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
+          * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_guild_announces.html'
       parameters:
@@ -1273,7 +1274,7 @@ paths:
       description: >
         用于删除子频道 channel_id 下 message_id 指定的子频道公告。
 
-        message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
+          * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_channel_announces.html'
       parameters:
@@ -1305,7 +1306,7 @@ paths:
       description: >
         用于获取channel_id指定的子频道中当天的日程列表。
 
-        若带了参数 since，则返回结束时间在 since 之后的日程列表；若未带参数 since，则默认返回当天的日程列表。
+        * 若带了参数 since，则返回结束时间在 since 之后的日程列表；若未带参数 since，则默认返回当天的日程列表。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/get_schedules.html'
       parameters:
@@ -1345,9 +1346,9 @@ paths:
       description: >
         用于在 channel_id 指定的日程子频道下创建一个日程。
 
-        要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
-        创建成功后，返回创建成功的日程对象。
-        创建操作频次限制: 单个管理员每天限10次, 单个频道每天100次。
+          * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
+          * 创建成功后，返回创建成功的日程对象。
+          * 创建操作频次限制: 单个管理员每天限`10`次, 单个频道每天`100`次。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/post_schedule.html'
       parameters:
@@ -1415,7 +1416,7 @@ paths:
       description: >
         用于修改日程子频道 channel_id 下 schedule_id 指定的日程的详情。
 
-        要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
+        * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/patch_schedule.html'
       parameters:
@@ -1456,7 +1457,7 @@ paths:
       description: >
         用于删除日程子频道 channel_id 下 schedule_id 指定的日程。
 
-        要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
+        * 要求操作人具有`管理频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/delete_schedule.html'
       parameters:
@@ -1488,7 +1489,7 @@ paths:
       description: >
         用于控制子频道 channel_id 下的音频。
 
-        音频接口：仅限音频类机器人才能使用，后续会根据机器人类型自动开通接口权限，现如需调用，需联系平台申请权限。
+        * 音频接口：仅限音频类机器人才能使用，后续会根据机器人类型自动开通接口权限，现如需调用，需联系平台申请权限。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/audio_control.html'
       parameters:
@@ -1550,7 +1551,7 @@ paths:
       description: >
         用于创建 API 接口权限授权链接，该链接指向guild_id对应的频道 。
 
-        每天只能在一个频道内发 3 条（默认值）频道权限授权链接。
+        * 每天只能在一个频道内发 `3` 条（默认值）频道权限授权链接。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/post_api_permission_demand.html'
       parameters:
@@ -1620,9 +1621,8 @@ paths:
       summary: 获取带分片 WSS 接入点
       description: >
         用于获取 WSS 接入地址及相关信息，通过该地址可建立 websocket 长连接。相关信息包括：
-
-        建议的分片数。
-        目前连接数使用情况。
+          * 建议的分片数。
+          * 目前连接数使用情况。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/shard_url_get.html'
       
@@ -1749,7 +1749,7 @@ components:
           $ref: '#/components/schemas/Application'
       xml:
         name: Channel
-      description: '子频道对象,子频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。请不要理解为真实的 ID'
+      description: 子频道对象,子频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。请不要理解为真实的 ID
     Member:
       type: object
       properties:
@@ -1808,15 +1808,15 @@ components:
           description: 用户ID
         role_id:
           type: string
-          description: '身份组ID,用户 id 或 身份组 id，只会返回其中之一'
+          description: 身份组ID,用户 id 或 身份组 id，只会返回其中之一
         permissions:
           $ref: '#/components/schemas/Permissions'
       xml:
         name: ChannelPermissions
-      description: |-
+      description: >
         子频道权限对象, 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。
-        用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
-        权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制'28671'
+          * 用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
+          * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制'28671'
     Message:
       type: object
       properties:
