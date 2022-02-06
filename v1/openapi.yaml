@@ -3,7 +3,7 @@ info:
   title: QQ机器人开放平台
   description: QQ频道机器人OpenAPI
   version: 1.0.0
-  termsOfService: https://bot.q.qq.com/
+  termsOfService: /
   contact:
     name: ''
     url: www.qq.com
