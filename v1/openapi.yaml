@@ -3,11 +3,10 @@ info:
   title: QQ机器人开放平台
   description: QQ频道机器人OpenAPI
   version: 1.0.0
-  termsOfService: www.qq.com
+  termsOfService: https://bot.q.qq.com/
   contact:
     name: ''
     url: www.qq.com
-    email: donhu@tencent.com
 servers:
   - url: 'https://api.sgroup.qq.com'
     description: 正式环境
