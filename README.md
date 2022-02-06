@@ -2,6 +2,8 @@
 
 OpenAPI Specification V3 for Bot OpenAPI
 
+https://tencent-connect.github.io/bot-oas/
+
 ## Online OAS Editor
 
 * [Swagger Editor](https://editor.swagger.io/)
