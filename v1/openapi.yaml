@@ -93,8 +93,12 @@ paths:
             type: string
           description: 频道ID
       responses:
-        default:
-          description: Default response
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guild'
       tags:
         - 频道API
   /users/@me:
@@ -251,9 +255,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Channel'
+                $ref: '#/components/schemas/Channel'
         401:
           description: 认证失败
         500:
@@ -2855,4 +2857,3 @@ components:
         in: header
   links: {}
   callbacks: {}
-
