@@ -1853,10 +1853,7 @@ components:
           items:
             $ref: '#/components/schemas/User'
         member:
-          type: array
-          description: 消息创建者的member信息
-          items:
-            $ref: '#/components/schemas/Member'
+          $ref: '#/components/schemas/Member'
         ark:
           description: ark消息
           $ref: '#/components/schemas/MessageArk'
