@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: QQ 机器人 OpenAPI
   description: |
@@ -16,7 +16,6 @@ servers:
       沙箱环境调用 openapi 仅能操作沙箱频道
 security:
   - bot_auth: []
-
 paths:
   /guilds/{guild_id}:
     parameters:
@@ -48,10 +47,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 用户API
   /users/@me/guilds:
@@ -90,10 +85,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Guild'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 用户API
   /guilds/{guild_id}/channels:
@@ -113,20 +104,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Channel'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道API
     post:
       summary: 创建子频道
       description: |
         用于在 guild_id 指定的频道下创建一个子频道。
-
           * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 创建成功后，返回创建成功的子频道对象，同时会触发一个频道创建的事件通知。
-
           * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
@@ -146,12 +131,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Channel'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
-        - 子频道API   
+        - 子频道API
   /channels/{channel_id}:
     parameters:
       - $ref: '#/components/parameters/PathChannelID'
@@ -167,20 +148,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Channel'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道API
     patch:
       summary: 修改子频道
       description: |
         用于修改 channel_id 指定的子频道的信息。
-
           * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 修改成功后，会触发子频道更新事件。
-
           * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
@@ -198,10 +173,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Channel'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道API
     delete:
@@ -210,7 +181,6 @@ paths:
         用于删除 channel_id 指定的子频道。
           * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 修改成功后，会触发子频道删除事件。
-
           * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
@@ -218,18 +188,13 @@ paths:
       responses:
         200:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
-        - 子频道API       
+        - 子频道API   
   /guilds/{guild_id}/members:
     get:
       summary: 获取频道成员列表
       description: |
         用于获取 guild_id 指定的频道中所有成员的详情列表，支持分页。
-
           * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
@@ -258,10 +223,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Member'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 成员API
   /guilds/{guild_id}/members/{user_id}:
@@ -280,21 +241,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Member'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 成员API
     delete:
       summary: 删除频道成员
       description: |
         用于删除 guild_id 指定的频道下的成员 user_id。
-
           * 需要使用的 token 对应的用户具备踢人权限。如果是机器人，要求被添加为管理员。
           * 操作成功后，会触发频道成员删除事件。
           * 无法移除身份为管理员的成员
-
           * `公域机器人暂不支持申请，仅私域机器人可用，选择私域机器人后默认开通。`
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
@@ -311,10 +266,6 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 成员API
   /guilds/{guild_id}/roles:
@@ -344,17 +295,12 @@ paths:
                   role_num_limit:
                     type: string
                     description: 默认分组上限
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
     post:
       summary: 创建频道身份组
       description: |
         用于在guild_id 指定的频道下创建一个身份组。
-
           * 需要使用的 token 对应的用户具备创建身份组权限。如果是机器人，要求被添加为管理员。
           * 参数为非必填，但至少需要传其中之一，默认为空或 0。
       externalDocs:
@@ -390,10 +336,6 @@ paths:
                   role:
                     $ref: '#/components/schemas/GuildRole'
                     description: 频道身份组对象
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
   /guilds/{guild_id}/roles/{role_id}:
@@ -404,7 +346,6 @@ paths:
       summary: 修改频道身份组
       description: |
         用于修改频道 guild_id 下 role_id 指定的身份组。
-
           * 需要使用的 token 对应的用户具备修改身份组权限。如果是机器人，要求被添加为管理员。
           * 接口会修改传入的字段，不传入的默认不会修改，至少要传入一个参数。
       externalDocs:
@@ -441,27 +382,18 @@ paths:
                   role:
                     $ref: '#/components/schemas/GuildRole'
                     description: 频道身份组对象
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
     delete:
       summary: 删除频道身份组
       description: |
         用于删除频道guild_id下 role_id 对应的身份组。
-
         * 需要使用的 token 对应的用户具备`删除身份组权限`。如果是机器人，要求被添加为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/delete_guild_role.html
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
   /guilds/{guild_id}/members/{user_id}/roles/{role_id}:
@@ -473,7 +405,6 @@ paths:
       summary: 创建频道身份组成员
       description: |
         用于将频道guild_id下的用户 user_id 添加到身份组 role_id 。
-
           * 需要使用的 token 对应的用户具备增加身份组成员权限。如果是机器人，要求被添加为管理员。
           * 如果要增加的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
@@ -486,21 +417,16 @@ paths:
               properties:
                 id:
                   type: string
-                  description: 子频道 id 
+                  description: 子频道 id
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
     delete:
       summary: 删除频道身份组成员
       description: |
         用于将 用户 user_id 从 频道 guild_id 的 role_id 身份组中移除。
-
           * 需要使用的 token 对应的用户具备删除身份组成员权限。如果是机器人，要求被添加为管理员。
           * 如果要删除的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
@@ -517,10 +443,6 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 频道身份组API
   /channels/{channel_id}/members/{user_id}/permissions:
@@ -531,7 +453,6 @@ paths:
       summary: 获取子频道用户权限
       description: |
         用于获取 子频道channel_id 下用户 user_id 的权限。
-
           * 获取子频道用户权限。
           * 要求操作人具有`管理子频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
@@ -543,17 +464,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelPermissions'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道权限API
     put:
       summary: 修改子频道权限
       description: |
         用于修改子频道 channel_id 下用户 user_id 的权限。
-
           * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 参数包括add和remove两个字段，分别表示授予的权限以及删除的权限。要授予用户权限即把add对应位置 1，删除用户权限即把remove对应位置 1。当两个字段同一位都为 1，表现为删除权限。
           * `本接口不支持修改可管理子频道权限。`
@@ -574,12 +490,8 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
-        - 子频道权限API  
+        - 子频道权限API
   /channels/{channel_id}/roles/{role_id}/permissions:
     parameters:
       - $ref: '#/components/parameters/PathChannelID'
@@ -588,7 +500,6 @@ paths:
       summary: 获取子频道身份组权限
       description: |
         用于获取子频道 channel_id 下身份组 role_id 的权限。
-
         * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/get_channel_roles_permissions.html
@@ -599,17 +510,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelPermissions'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道权限API
     put:
       summary: 修改子频道身份组权限
       description: |
         用于修改子频道 channel_id 下身份组 role_id 的权限。
-
           * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 参数包括add和remove两个字段，分别表示授予的权限以及删除的权限。要授予身份组权限即把add对应位置 1，删除身份组权限即把remove对应位置 1。当两个字段同一位都为 1，表现为删除权限。
           * `本接口不支持修改可管理子频道权限。`
@@ -630,10 +536,6 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 子频道权限API
   /channels/{channel_id}/messages/{message_id}:
@@ -652,10 +554,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 消息API
   /channels/{channel_id}/messages:
@@ -665,7 +563,6 @@ paths:
       summary: 发送消息
       description: |
         用于向 channel_id 指定的子频道发送消息。
-
         * 要求操作人在该子频道具有发送消息的权限。
         * 主动推送消息，默认每天往每个频道可推送的消息数是 `20` 条，超过会被限制。
         * 主动推送消息在每个频道中，每天可以往 `2` 个子频道推送消息。超过后会被限制。
@@ -688,10 +585,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 消息API
   /users/@me/dms:
@@ -699,7 +592,6 @@ paths:
       summary: 创建私信会话
       description: |
         用于机器人和在同一个频道内的成员创建私信会话。
-
           * 机器人和用户存在共同频道才能创建私信会话。
           * 创建成功后，返回创建成功的频道 id ，子频道 id 和创建时间。
       externalDocs:
@@ -728,10 +620,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DMS'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 私信API
   /dms/{guild_id}/messages:
@@ -741,7 +629,6 @@ paths:
       summary: 发送私信
       description: |
         用于发送私信消息，前提是已经创建了私信会话。
-
         * 私信的 guild_id 在创建私信会话时以及私信消息事件中获取。
         * 私信场景下，每个机器人每天可以对一个用户发 `2` 条主动消息。
         * 私信场景下，每个机器人每天累计可以发 `200` 条主动消息。
@@ -763,10 +650,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Message'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 私信API
   /guilds/{guild_id}/mute:
@@ -776,7 +659,6 @@ paths:
       summary: 禁言全员
       description: |
         用于将频道的全体成员（非管理员）禁言。
-
           * 需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
           * 该接口同样可用于解除禁言，具体使用见解除全员禁言。
           * `该接口同样支持解除全员禁言，将mute_end_timestamp或mute_seconds传值为字符串'0'即可`。
@@ -798,10 +680,6 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 禁言API
   /guilds/{guild_id}/members/{user_id}/mute:
@@ -812,7 +690,6 @@ paths:
       summary: 禁言指定成员
       description: |
         用于禁言频道 guild_id 下的成员 user_id。
-
         * 需要使用的 token 对应的用户具备管理员权限。如果是机器人，要求被添加为管理员。
         * `该接口同样可用于解除禁言，具体使用见解除指定成员禁言`。
       externalDocs:
@@ -833,10 +710,6 @@ paths:
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 禁言API
   /guilds/{guild_id}/announces:
@@ -860,7 +733,7 @@ paths:
                 channel_id:
                   type: string
                   description: 子频道 id
-              required: 
+              required:
                 - message_id
                 - channel_id
       responses:
@@ -868,12 +741,8 @@ paths:
           description: 成功
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Announces'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 公告API
   /guilds/{guild_id}/announces/{message_id}:
@@ -884,17 +753,12 @@ paths:
       summary: 删除频道公告
       description: |
         用于删除频道 guild_id 下 message_id 指定的全局公告。
-
           * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_guild_announces.html
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 公告API
   /channels/{channel_id}/announces:
@@ -914,8 +778,8 @@ paths:
                 message_id:
                   type: string
                   description: 消息 id
-              required: 
-                - message_id     
+              required:
+                - message_id
       responses:
         200:
           description: 成功
@@ -923,10 +787,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Announces'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 公告API
   /channels/{channel_id}/announces/{message_id}:
@@ -937,17 +797,12 @@ paths:
       summary: 删除子频道公告
       description: |
         用于删除子频道 channel_id 下 message_id 指定的子频道公告。
-
         * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_channel_announces.html'
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 公告API
   /channels/{channel_id}/schedules:
@@ -957,7 +812,6 @@ paths:
       summary: 获取频道日程列表
       description: |
         用于获取channel_id指定的子频道中当天的日程列表。
-
         * 若带了参数 since，则返回结束时间在 since 之后的日程列表；若未带参数 since，则默认返回当天的日程列表。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/get_schedules.html
@@ -969,7 +823,7 @@ paths:
               properties:
                 since:
                   type: integer
-                  description: 起始时间戳(ms)     
+                  description: 起始时间戳(ms) 
       responses:
         200:
           description: 成功
@@ -979,17 +833,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Schedule'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 日程API
     post:
       summary: 创建日程
       description: |
         用于在 channel_id 指定的日程子频道下创建一个日程。
-
           * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
           * 创建成功后，返回创建成功的日程对象。
           * 创建操作频次限制: 单个管理员每天限`10`次, 单个频道每天`100`次。
@@ -1000,7 +849,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScheduleCreate'     
+              $ref: '#/components/schemas/ScheduleCreate' 
       responses:
         200:
           description: 成功
@@ -1008,10 +857,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Schedule'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 日程API
   /channels/{channel_id}/schedules/{schedule_id}:
@@ -1030,17 +875,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Schedule'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 日程API
     patch:
       summary: 修改日程
       description: |
         用于修改日程子频道 channel_id 下 schedule_id 指定的日程的详情。
-
         * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/patch_schedule.html
@@ -1049,7 +889,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScheduleUpdate' 
+              $ref: '#/components/schemas/ScheduleUpdate'
       responses:
         200:
           description: 成功
@@ -1057,27 +897,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Schedule'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 日程API
     delete:
       summary: 删除日程
       description: |
         用于删除日程子频道 channel_id 下 schedule_id 指定的日程。
-
         * 要求操作人具有`管理频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/delete_schedule.html
       responses:
         204:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 日程API
   /channels/{channel_id}/audio:
@@ -1087,7 +918,6 @@ paths:
       summary: 音频控制
       description: |
         用于控制子频道 channel_id 下的音频。
-
         * 音频接口:仅限音频类机器人才能使用，后续会根据机器人类型自动开通接口权限，现如需调用，需联系平台申请权限。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/audio_control.html'
@@ -1096,14 +926,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AudioControl'  
+              $ref: '#/components/schemas/AudioControl'
       responses:
         200:
           description: 成功
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - 音频API
   /guilds/{guild_id}/api_permission:
@@ -1124,10 +950,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/APIPermission'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - API接口权限API
   /guilds/{guild_id}/api_permission/demand:
@@ -1137,7 +959,6 @@ paths:
       summary: 创建频道 API 接口权限授权链接
       description: |
         用于创建 API 接口权限授权链接，该链接指向guild_id对应的频道 。
-
         * 每天只能在一个频道内发 `3` 条（默认值）频道权限授权链接。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/post_api_permission_demand.html
@@ -1165,10 +986,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/APIPermissionDemand'
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - API接口权限API
   /gateway:
@@ -1188,10 +1005,6 @@ paths:
                   url:
                     type: string
                     description: websocket 的地址
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - WebSocket API
   /gateway/bot:
@@ -1220,10 +1033,6 @@ paths:
                   session_start_limit:
                     $ref: '#/components/schemas/SessionStartLimit'
                     description: 创建 Session 限制信息
-        401:
-          description: 认证失败
-        500:
-          description: 处理失败
       tags:
         - WebSocket API
   /channels/{channel_id}/messages/{message_id}/reactions/{type}/{id}:
@@ -1256,7 +1065,6 @@ paths:
       responses:
         204:
           description: 成功
-
 # 对象定义
 components:
   # path 参数统一定义在这里
@@ -1340,7 +1148,7 @@ components:
         joined_at:
           type: string
           description: 加入时间
-      
+  
       description: |
         频道对象,频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。
         请不要理解为真实的 ID
@@ -1369,7 +1177,7 @@ components:
           description: |
             机器人关联的互联应用的用户信息，与union_openid关联的应用是同一个。
             如需申请，请联系平台运营人员
-      
+  
       description: |
         用户对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。
         请不要理解为真实的 ID
@@ -1406,7 +1214,7 @@ components:
           $ref: '#/components/schemas/SpeakPermission'
         application_id:
           $ref: '#/components/schemas/Application'
-      
+  
       description: 子频道对象,子频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。请不要理解为真实的 ID
     Member:
       type: object
@@ -1425,7 +1233,7 @@ components:
         joined_at:
           type: string
           description: '用户加入频道的时间, ISO8601格式'
-      
+  
       description: 成员对象
     Role:
       type: object
@@ -1450,7 +1258,7 @@ components:
           type: integer
           description: 成员上限
           format: uint32
-      
+  
       description: 频道身份组对象
     ChannelPermissions:
       type: object
@@ -1467,7 +1275,7 @@ components:
           description: 身份组ID,用户 id 或 身份组 id，只会返回其中之一
         permissions:
           $ref: '#/components/schemas/Permissions'
-      
+  
       description: |
         子频道权限对象, 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。
           * 用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
@@ -1531,7 +1339,7 @@ components:
           description: |
             引用消息对象
           $ref: "#/components/schemas/MessageReference"
-      
+  
       description: 消息对象
     MessageReference:
       type: object
@@ -1549,7 +1357,7 @@ components:
         url:
           type: string
           description: 下载地址
-      
+  
       description: 消息附件
     MessageEmbed:
       type: object
@@ -1568,7 +1376,7 @@ components:
           description: embed 字段数据
           items:
             $ref: '#/components/schemas/MessageEmbedField'
-      
+  
       description: embed消息
     MessageEmbedThumbnail:
       type: object
@@ -1576,7 +1384,7 @@ components:
         url:
           type: string
           description: 图片地址
-      
+  
       description: 消息封面
     MessageEmbedField:
       type: object
@@ -1584,7 +1392,7 @@ components:
         name:
           type: string
           description: 字段
-      
+  
       description: embed字段
     MessageArk:
       type: object
@@ -1597,7 +1405,7 @@ components:
           description: kv值列表
           items:
             $ref: '#/components/schemas/MessageArkKv'
-      
+  
       description: ark消息
     MessageArkKv:
       type: object
@@ -1613,7 +1421,7 @@ components:
           description: ark obj类型的列表
           items:
             $ref: '#/components/schemas/MessageArkObj'
-      
+  
       description: ARK消息KV
     MessageArkObj:
       type: object
@@ -1623,7 +1431,7 @@ components:
           description: ark objkv列表
           items:
             $ref: '#/components/schemas/MessageArkObjKv'
-      
+  
       description: MessageArkObj
     MessageArkObjKv:
       type: object
@@ -1634,7 +1442,7 @@ components:
         value:
           type: string
           description: value
-      
+  
       description: MessageArkObjKv
     MessageAudited:
       type: object
@@ -1642,7 +1450,7 @@ components:
         url:
           type: string
           description: 下载地址
-      
+  
       description: 消息附件
     DMS:
       type: object
@@ -1657,7 +1465,7 @@ components:
         create_time:
           type: string
           description: 创建私信会话时间戳
-      
+  
       description: 私信会话对象
     Announces:
       type: object
@@ -1672,7 +1480,7 @@ components:
         message_id:
           type: string
           description: 消息ID
-      
+  
       description: 公告对象
     Schedule:
       type: object
@@ -1703,7 +1511,7 @@ components:
           format: int64
         remind_type:
           $ref: '#/components/schemas/RemindType'
-      
+  
       description: 日程对象
     Emoji:
       type: object
@@ -1712,7 +1520,7 @@ components:
           $ref: '#/components/schemas/EmojiID'
         type:
           $ref: '#/components/schemas/EmojiType'
-      
+  
       description: 表情对象
     MessageReaction:
       type: object
@@ -1733,7 +1541,7 @@ components:
         emoji:
           $ref: '#/components/schemas/Emoji'
           description: 表态所用表情
-      
+  
       description: 表情表态对象
     ReactionTarget:
       type: object
@@ -1743,7 +1551,7 @@ components:
           description: 表态对象ID
         type:
           $ref: '#/components/schemas/ReactionTargetType'
-      
+  
       description: ReactionTarget
     AudioControl:
       type: object
@@ -1756,7 +1564,7 @@ components:
           description: 状态文本（比如：简单爱-周杰伦），可选，status为0时传，其他操作不传
         status:
           $ref: '#/components/schemas/AudioControlStatus'
-      
+  
       description: 语音对象
     APIPermission:
       type: object
@@ -1773,7 +1581,7 @@ components:
         auth_status:
           type: integer
           description: 授权状态，auth_stats 为 1 时已授权
-      
+  
       description: 接口权限对象
     APIPermissionDemand:
       type: object
@@ -1793,7 +1601,7 @@ components:
         desc:
           type: string
           description: 接口权限链接中的机器人可使用功能的描述信息
-      
+  
       description: 接口权限需求对象
     APIPermissionDemandIdentify:
       type: object
@@ -1804,7 +1612,7 @@ components:
         name:
           type: string
           description: 请求方法，例如 GET
-      
+  
       description: 接口权限需求标识对象
     ChannelCreate:
       type: object
@@ -1829,11 +1637,11 @@ components:
           items:
             type: string
           description: 子频道私密类型成员 ID
-      required: 
+      required:
         - name
         - type
         - sub_type
-      
+  
       description: 创建子频道请求对象
     ChannelUpdate:
       type: object
@@ -1853,7 +1661,7 @@ components:
           description: 所属分组 id，仅对子频道有效，对 子频道分组（ChannelType=4） 无效
         private_type:
           $ref: '#/components/schemas/PrivateType'
-      
+  
       description: 修子频道请求对象
     GuildRole:
       type: object
@@ -1876,7 +1684,7 @@ components:
         member_limit:
           type: number
           description: 成员上限
-      
+  
       description: 频道身份组对象
     MessageSend:
       type: object
@@ -1932,7 +1740,7 @@ components:
         - start_timestamp
         - end_timestamp
         - remind_type
-      
+  
       description: 日程创建对象
     ScheduleUpdate:
       type: object
@@ -1961,7 +1769,7 @@ components:
         remind_type:
           type: string
           description: 日程提醒类型
-      
+  
       description: 日程更新对象
     SessionStartLimit:
       type: object
@@ -1978,7 +1786,7 @@ components:
         max_concurrency:
           type: integer
           description: 每 5s 可以创建的 Session 数
-      
+  
       description: 创建 Session 限制信息
     DefaultRoleIDs:
       type: string
@@ -2023,7 +1831,7 @@ components:
           * `1` - 公告
           * `2` - 攻略
           * `3` - 开黑
-          
+      
           | 目前只有文字子频道具有 ChannelSubType 二级分类，同时二级分类也可能会不断增加，开发者也需要注意对未知 ID 的处理
       enum:
         - 0
@@ -2063,17 +1871,13 @@ components:
           * `1000050` - 日程提醒
           * `1000070` - CoDM 开黑大厅
           * `1010000` - 和平精英开黑大厅
-
         | 由于QQ频道还在持续的迭代中，应用子频道的 application_id 还会持续新增，后续会不定期补充到文档中
     Permissions:
       type: string
       description: |
         * 用户/角色拥有的(子)频道权限
-
         * 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
-
         * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制"28671"。
-
           | 权限 | 值 | 描述 |
           | --- | --- | --- |
           | 可查看子频道 | 0x0000000001 (1 << 0) | 支持`指定成员`可见类型，支持`身份组`可见类型 |
@@ -2104,7 +1908,7 @@ components:
           * `0` - 消息
           * `1` - 帖子
           * `2` - 评论
-          * `3` - 回复   
+          * `3` - 回复
     EmojiType:
       type: integer
       description: |
@@ -2116,7 +1920,7 @@ components:
       description: |
         emoji 表情 :
           本处列表仅包含部分表情，随着时间推移，可能会与线上情况相比有所增减。建议开发者如果要基于表情表态来做逻辑，优先针对已知的QQ系统表情类型（EmojiType=1）来处理。
-        
+    
           | 表情类型 | 表情ID | 表情含义 |
           | -------- | ------ | -------- |
           | 1        | 4      | 得意     |
@@ -2286,7 +2090,6 @@ components:
           | 2        | 128557 | 😭 大哭   |
           | 2        | 128560 | 😰 紧张   |
           | 2        | 128563 | 😳 瞪眼   |
-
   securitySchemes:
       bot_auth:
         description: 机器人 API 鉴权，格式为 `Bot {appID}.{appToken}`
@@ -2295,7 +2098,22 @@ components:
         in: header
   links: {}
   callbacks: {}
-
+  responses:
+    401:
+      description: |
+        请求异常，请检查参数传递是否正确
+    403:
+      description: |
+        权限检查失败，请检查如下几点：
+          - 头部的 token 是否正确
+          - 频道主是否授予了机器人对应的权限
+          - 频道ID等ID是否正确
+    500:
+      description: |
+        内部逻辑处理失败，大部分情况下可以重试，如果重试仍然失败，请检查参数是否正确
+    502:
+      description: |
+        内部处理超时，请稍后重试
 # 接口分类说明
 tags:
   - name: 用户API
@@ -2358,7 +2176,6 @@ tags:
     description: WS相关API集合
     externalDocs:
       url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html'
-
 # 文档地址
 externalDocs:
   description: 'Reference: QQ 机器人文档'
