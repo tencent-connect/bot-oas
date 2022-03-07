@@ -235,12 +235,7 @@ paths:
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/member/get_members.html
       parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
+        - $ref: '#/components/parameters/PathGuildID'
         - name: after
           in: query
           required: false
@@ -254,7 +249,6 @@ paths:
             type: number
             default: 1
           description: 分页大小，1-400，默认是 1。成员较多的频道尽量使用较大的limit值，以减少请求数
-      
       responses:
         200:
           description: 成功
