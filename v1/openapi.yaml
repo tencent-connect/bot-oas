@@ -335,7 +335,6 @@ paths:
                     description: 频道身份组 ID
                   role:
                     $ref: '#/components/schemas/GuildRole'
-                    description: 频道身份组对象
       tags:
         - 频道身份组API
   /guilds/{guild_id}/roles/{role_id}:
@@ -381,7 +380,6 @@ paths:
                     description: 频道身份组 ID
                   role:
                     $ref: '#/components/schemas/GuildRole'
-                    description: 频道身份组对象
       tags:
         - 频道身份组API
     delete:
@@ -973,7 +971,6 @@ paths:
                   description: 授权链接发送的子频道 id
                 api_identify:
                   $ref: '#/components/schemas/APIPermissionDemandIdentify'
-                  description: api 权限需求标识对象
                 desc:
                   type: string
                   description: 机器人申请对应的 API 接口权限后可以使用功能的描述
@@ -1032,7 +1029,6 @@ paths:
                     description: 建议的 shard 数
                   session_start_limit:
                     $ref: '#/components/schemas/SessionStartLimit'
-                    description: 创建 Session 限制信息
       tags:
         - WebSocket API
   /channels/{channel_id}/messages/{message_id}/reactions/{type}/{id}:
@@ -1221,7 +1217,6 @@ components:
       properties:
         user:
           $ref: '#/components/schemas/User'
-          description: 用户的频道基础信息，只有成员相关接口中会填充此信息
         nick:
           type: string
           description: 用户的昵称
@@ -1282,6 +1277,7 @@ components:
           * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制'28671'
     Message:
       type: object
+      description: 消息对象
       properties:
         id:
           type: string
@@ -1309,7 +1305,6 @@ components:
           description: 是否是@全员消息
         author:
           $ref: '#/components/schemas/User'
-          description: 消息创建者
         attachments:
           type: array
           description: 附件
@@ -1328,19 +1323,13 @@ components:
         member:
           $ref: '#/components/schemas/Member'
         ark:
-          description: ark消息
           $ref: '#/components/schemas/MessageArk'
         seq:
           type: integer
           description: |
             用于消息间的排序，seq 在同一子频道中按从先到后的顺序递增，不同的子频道之前消息无法排序
         message_reference:
-          type: object
-          description: |
-            引用消息对象
           $ref: "#/components/schemas/MessageReference"
-  
-      description: 消息对象
     MessageReference:
       type: object
       description: 引用消息对象
@@ -1370,7 +1359,6 @@ components:
           description: 消息弹窗内容
         thumbnail:
           $ref: '#/components/schemas/MessageEmbedThumbnail'
-          description: 缩略图
         fields:
           type: array
           description: embed 字段数据
@@ -1504,7 +1492,6 @@ components:
           format: int64
         creator:
           $ref: '#/components/schemas/Member'
-          description: 创建者
         jump_channel_id:
           type: string
           description: 日程开始时跳转到的子频道 id
@@ -1524,6 +1511,7 @@ components:
       description: 表情对象
     MessageReaction:
       type: object
+      description: 表情表态对象
       properties:
         user_id:
           type: string
@@ -1537,24 +1525,20 @@ components:
           description: 子频道ID
         target:
           $ref: '#/components/schemas/ReactionTarget'
-          description: 表态对象
         emoji:
           $ref: '#/components/schemas/Emoji'
-          description: 表态所用表情
-  
-      description: 表情表态对象
     ReactionTarget:
       type: object
+      description: ReactionTarget
       properties:
         id:
           type: string
           description: 表态对象ID
         type:
           $ref: '#/components/schemas/ReactionTargetType'
-  
-      description: ReactionTarget
     AudioControl:
       type: object
+      description: 语音对象
       properties:
         audio_url:
           type: string
@@ -1564,10 +1548,9 @@ components:
           description: 状态文本（比如：简单爱-周杰伦），可选，status为0时传，其他操作不传
         status:
           $ref: '#/components/schemas/AudioControlStatus'
-  
-      description: 语音对象
     APIPermission:
       type: object
+      description: 接口权限对象
       properties:
         path:
           type: string
@@ -1581,10 +1564,9 @@ components:
         auth_status:
           type: integer
           description: 授权状态，auth_stats 为 1 时已授权
-  
-      description: 接口权限对象
     APIPermissionDemand:
       type: object
+      description: 接口权限需求对象
       properties:
         guild_id:
           type: string
@@ -1594,17 +1576,15 @@ components:
           description: 接口权限需求授权链接发送的子频道 id
         api_identify:
           $ref: '#/components/schemas/APIPermissionDemandIdentify'
-          description: 权限接口唯一标识
         title:
           type: string
           description: 接口权限链接中的接口权限描述信息
         desc:
           type: string
           description: 接口权限链接中的机器人可使用功能的描述信息
-  
-      description: 接口权限需求对象
     APIPermissionDemandIdentify:
       type: object
+      description: 接口权限需求标识对象
       properties:
         path:
           type: string
@@ -1612,10 +1592,9 @@ components:
         name:
           type: string
           description: 请求方法，例如 GET
-  
-      description: 接口权限需求标识对象
     ChannelCreate:
       type: object
+      description: 创建子频道请求对象
       properties:
         name:
           type: string
@@ -1641,10 +1620,9 @@ components:
         - name
         - type
         - sub_type
-  
-      description: 创建子频道请求对象
     ChannelUpdate:
       type: object
+      description: 修子频道请求对象
       properties:
         name:
           type: string
@@ -1661,10 +1639,9 @@ components:
           description: 所属分组 id，仅对子频道有效，对 子频道分组（ChannelType=4） 无效
         private_type:
           $ref: '#/components/schemas/PrivateType'
-  
-      description: 修子频道请求对象
     GuildRole:
       type: object
+      description: 频道身份组对象
       properties:
         id:
           type: string
@@ -1684,8 +1661,6 @@ components:
         member_limit:
           type: number
           description: 成员上限
-  
-      description: 频道身份组对象
     MessageSend:
       type: object
       properties:
@@ -1694,13 +1669,10 @@ components:
           description: 消息内容，文本内容，支持内嵌格式
         embed:
           $ref: "#/components/schemas/MessageEmbed"
-          description: embed 消息，一种特殊的 ark
         ark:
           $ref: "#/components/schemas/MessageArk"
-          description: ark 消息
         message_reference:
           $ref: "#/components/schemas/MessageReference"
-          description: 引用消息
         image:
           type: string
           description: 图片url地址，平台会转存该图片，用于下发图片消息
@@ -1710,6 +1682,7 @@ components:
       minProperties: 1
     ScheduleCreate:
       type: object
+      description: 日程创建对象
       properties:
         name:
           type: string
@@ -1727,7 +1700,6 @@ components:
           format: int64
         creator:
           $ref: '#/components/schemas/Member'
-          description: 创建者
         jump_channel_id:
           type: string
           description: 日程开始时跳转到的子频道 id
@@ -1740,10 +1712,9 @@ components:
         - start_timestamp
         - end_timestamp
         - remind_type
-  
-      description: 日程创建对象
     ScheduleUpdate:
       type: object
+      description: 日程更新对象
       properties:
         name:
           type: string
@@ -1761,7 +1732,6 @@ components:
           format: int64
         creator:
           $ref: '#/components/schemas/Member'
-          description: 创建者
         jump_channel_id:
           type: string
           description: 日程开始时跳转到的子频道 id
@@ -1769,10 +1739,9 @@ components:
         remind_type:
           type: string
           description: 日程提醒类型
-  
-      description: 日程更新对象
     SessionStartLimit:
       type: object
+      description: 创建 Session 限制信息
       properties:
         total:
           type: integer
@@ -1786,8 +1755,6 @@ components:
         max_concurrency:
           type: integer
           description: 每 5s 可以创建的 Session 数
-  
-      description: 创建 Session 限制信息
     DefaultRoleIDs:
       type: string
       description: |
@@ -2176,6 +2143,7 @@ tags:
     description: WS相关API集合
     externalDocs:
       url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html'
+
 # 文档地址
 externalDocs:
   description: 'Reference: QQ 机器人文档'
