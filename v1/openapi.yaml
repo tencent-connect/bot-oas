@@ -16,86 +16,16 @@ servers:
       沙箱环境调用 openapi 仅能操作沙箱频道
 security:
   - bot_auth: []
-externalDocs:
-  description: 'Reference: QQ 机器人文档'
-  url: https://bot.q.qq.com/wiki
-  
-tags:
-  - name: 用户API
-    description: 用户相关API集合，包括获取用户详情和用户所在频道列表
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/user/model.html'
-  - name: 频道API
-    description: 频道相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
-  - name: 子频道API
-    description: 子频道相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
-  - name: 成员API
-    description: 频道成员相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/member/model.html'
-  - name: 频道身份组API
-    description: 频道身份组相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/role_model.html'
-  - name: 子频道权限API
-    description: 子频道权限相关API集合
-    externalDocs:
-      url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/model.html
-  - name: 消息API
-    description: 消息相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/message/model.html'
-  - name: 禁言API
-    description: 禁言相关API集合
-    externalDocs:
-      url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_mute.html
-  - name: 私信API
-    description: 私信相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/dms/model.html'
-  - name: 公告API
-    description: ''
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/model.html'
-  - name: 日程API
-    description: 日程相关API
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/model.html'
-  - name: 表情表态API
-    description: 表情表态
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/reaction/model.html'
-  - name: 音频API
-    description: 音频相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/model.html'
-  - name: API接口权限API
-    description: API接口权限API
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/model.html'
-  - name: WebSocket API
-    description: WS相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html'
 
 paths:
   /guilds/{guild_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     get:
       summary: 获取频道详情
       description: 用于获取 guild_id 指定的频道的详情
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/get_guild.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
       responses:
         200:
           description: 成功
@@ -111,8 +41,6 @@ paths:
       description: 用于获取当前用户（机器人）详情
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/user/me.html
-      parameters: []
-      
       responses:
         200:
           description: 成功
@@ -127,33 +55,32 @@ paths:
       tags:
         - 用户API
   /users/@me/guilds:
+    parameters:
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 读此 guild id 之前的数据，before 设置时， 先反序，再分页
+      - name: after
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 读取此 id 之后的数据
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: number
+          default: 100
+        description: 每次拉取多少条数据，最大不超过 100，默认 100
     get:
       summary: 获取用户频道列表
       description: |
         用于获取当前用户（机器人）所加入的频道列表，支持分页，参数 before、after 同时存在时，以 before 为准。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/user/guilds.html'
-      parameters:
-        - name: before
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 读此 guild id 之前的数据，before 设置时， 先反序，再分页
-        - name: after
-          in: query
-          required: false
-          schema:
-            type: string
-          description: 读取此 id 之后的数据
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: number
-            default: 100
-          description: 每次拉取多少条数据，最大不超过 100，默认 100
-      
       responses:
         200:
           description: 成功
@@ -170,19 +97,13 @@ paths:
       tags:
         - 用户API
   /guilds/{guild_id}/channels:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     get:
       summary: 获取子频道列表
       description: 用于获取 guild_id 指定的频道下的子频道列表
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/get_channels.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       responses:
         200:
           description: 成功
@@ -210,14 +131,6 @@ paths:
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/post_channels.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       requestBody:
         required: true
         content:
@@ -240,19 +153,13 @@ paths:
       tags:
         - 子频道API   
   /channels/{channel_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
     get:
       summary: 获取子频道详情
       description: 用于获取 channel_id 指定的子频道的详情
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/get_channel.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       responses:
         200:
           description: 成功
@@ -278,14 +185,6 @@ paths:
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel/patch_channel.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       requestBody:
         required: true
         content:
@@ -316,14 +215,6 @@ paths:
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel/delete_channel.html'
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       responses:
         200:
           description: 成功
@@ -380,25 +271,14 @@ paths:
       tags:
         - 成员API
   /guilds/{guild_id}/members/{user_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: '#/components/parameters/PathUserID'
     get:
       summary: 获取成员详情
       description: 用于获取 guild_id 指定的频道中 user_id 对应成员的详细信息
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/member/get_member.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       responses:
         200:
           description: 成功
@@ -425,20 +305,6 @@ paths:
           * `注意: 开通后需要先将机器人从频道移除，然后重新添加，方可生效。`
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/member/delete_member.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       requestBody:
         required: false
         content:
@@ -458,19 +324,13 @@ paths:
       tags:
         - 成员API
   /guilds/{guild_id}/roles:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     get:
       summary: 获取频道身份组列表
       description: 用于获取 guild_id指定的频道下的身份组列表
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/get_guild_roles.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       responses:
         200:
           description: 成功
@@ -505,13 +365,6 @@ paths:
           * 参数为非必填，但至少需要传其中之一，默认为空或 0。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/post_guild_role.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
       requestBody:
         required: true
         content:
@@ -550,6 +403,9 @@ paths:
       tags:
         - 频道身份组API
   /guilds/{guild_id}/roles/{role_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: '#/components/parameters/PathRoleID'
     patch:
       summary: 修改频道身份组
       description: |
@@ -559,20 +415,6 @@ paths:
           * 接口会修改传入的字段，不传入的默认不会修改，至少要传入一个参数。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_role.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
-      
       requestBody:
         required: true
         content:
@@ -619,20 +461,6 @@ paths:
         * 需要使用的 token 对应的用户具备`删除身份组权限`。如果是机器人，要求被添加为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/delete_guild_role.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
-      
       responses:
         204:
           description: 成功
@@ -643,6 +471,10 @@ paths:
       tags:
         - 频道身份组API
   /guilds/{guild_id}/members/{user_id}/roles/{role_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: '#/components/parameters/PathRoleID'
+      - $ref: '#/components/parameters/PathUserID'
     put:
       summary: 创建频道身份组成员
       description: |
@@ -652,26 +484,6 @@ paths:
           * 如果要增加的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/put_guild_member_role.html'
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       requestBody:
         required: true
         content:
@@ -699,26 +511,6 @@ paths:
           * 如果要删除的身份组 ID 是5-子频道管理员，需要增加 channel 对象来指定具体是哪个子频道。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/delete_guild_member_role.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       requestBody:
         required: true
         content:
@@ -738,6 +530,9 @@ paths:
       tags:
         - 频道身份组API
   /channels/{channel_id}/members/{user_id}/permissions:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathUserID'
     get:
       summary: 获取子频道用户权限
       description: |
@@ -747,20 +542,6 @@ paths:
           * 要求操作人具有`管理子频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/get_channel_permissions.html'
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       responses:
         200:
           description: 成功
@@ -784,20 +565,6 @@ paths:
           * `本接口不支持修改可管理子频道权限。`
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/put_channel_permissions.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       requestBody:
         required: true
         content:
@@ -820,6 +587,9 @@ paths:
       tags:
         - 子频道权限API  
   /channels/{channel_id}/roles/{role_id}/permissions:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathRoleID'
     get:
       summary: 获取子频道身份组权限
       description: |
@@ -828,19 +598,6 @@ paths:
         * 要求操作人具有管理子频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/get_channel_roles_permissions.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
       responses:
         200:
           description: 成功
@@ -864,20 +621,6 @@ paths:
           * `本接口不支持修改可管理子频道权限。`
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/put_channel_roles_permissions.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 身份组ID
-      
       requestBody:
         required: true
         content:
@@ -900,25 +643,14 @@ paths:
       tags:
         - 子频道权限API
   /channels/{channel_id}/messages/{message_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathMessageID'
     get:
       summary: 获取指定消息
       description: 用于获取子频道 channel_id 下的消息 message_id 的详情。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/message/get_message_of_id.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: message_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 消息ID
-      
       responses:
         200:
           description: 成功
@@ -933,6 +665,8 @@ paths:
       tags:
         - 消息API
   /channels/{channel_id}/messages:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
     post:
       summary: 发送消息
       description: |
@@ -947,13 +681,6 @@ paths:
         * 有关主动消息审核，可以通过 Intents 中审核事件 MESSAGE_AUDIT 返回 MessageAudited 对象获取结果。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/message/post_messages.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
       requestBody:
         required: true
         content:
@@ -983,7 +710,6 @@ paths:
           * 创建成功后，返回创建成功的频道 id ，子频道 id 和创建时间。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/dms/post_dms.html
-      
       requestBody:
         required: true
         content:
@@ -1015,6 +741,8 @@ paths:
       tags:
         - 私信API
   /dms/{guild_id}/messages:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     post:
       summary: 发送私信
       description: |
@@ -1026,14 +754,6 @@ paths:
         * 私信场景下，被动消息没有条数限制。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/dms/post_dms_messages.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       requestBody:
         required: true
         content:
@@ -1056,6 +776,8 @@ paths:
       tags:
         - 私信API
   /guilds/{guild_id}/mute:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     patch:
       summary: 禁言全员
       description: |
@@ -1066,14 +788,6 @@ paths:
           * `该接口同样支持解除全员禁言，将mute_end_timestamp或mute_seconds传值为字符串'0'即可`。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_mute.html'
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       requestBody:
         required: true
         content:
@@ -1097,6 +811,9 @@ paths:
       tags:
         - 禁言API
   /guilds/{guild_id}/members/{user_id}/mute:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: '#/components/parameters/PathUserID'
     patch:
       summary: 禁言指定成员
       description: |
@@ -1106,20 +823,6 @@ paths:
         * `该接口同样可用于解除禁言，具体使用见解除指定成员禁言`。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_member_mute.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 成员ID
-      
       requestBody:
         required: true
         content:
@@ -1143,20 +846,14 @@ paths:
       tags:
         - 禁言API
   /guilds/{guild_id}/announces:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     post:
       summary: 创建频道公告
       description: |
         用于将频道内的某条消息设置为频道全局公告
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/announces/post_guild_announces.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       requestBody:
         required: true
         content:
@@ -1186,6 +883,9 @@ paths:
       tags:
         - 公告API
   /guilds/{guild_id}/announces/{message_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: '#/components/parameters/PathMessageID'
     delete:
       summary: 删除频道公告
       description: |
@@ -1194,20 +894,6 @@ paths:
           * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_guild_announces.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-        - name: message_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 消息ID
-      
       responses:
         204:
           description: 成功
@@ -1218,19 +904,13 @@ paths:
       tags:
         - 公告API
   /channels/{channel_id}/announces:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
     post:
       summary: 创建子频道公告
       description: 用于将子频道 channel_id 内的某条消息设置为子频道公告。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/announces/post_channel_announces.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       requestBody:
         required: true
         content:
@@ -1256,6 +936,9 @@ paths:
       tags:
         - 公告API
   /channels/{channel_id}/announces/{message_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathMessageID'
     delete:
       summary: 删除子频道公告
       description: |
@@ -1264,20 +947,6 @@ paths:
         * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_channel_announces.html'
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: message_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 消息ID
-      
       responses:
         204:
           description: 成功
@@ -1288,6 +957,8 @@ paths:
       tags:
         - 公告API
   /channels/{channel_id}/schedules:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
     get:
       summary: 获取频道日程列表
       description: |
@@ -1296,14 +967,6 @@ paths:
         * 若带了参数 since，则返回结束时间在 since 之后的日程列表；若未带参数 since，则默认返回当天的日程列表。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/get_schedules.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       requestBody:
         required: true
         content:
@@ -1338,14 +1001,6 @@ paths:
           * 创建操作频次限制: 单个管理员每天限`10`次, 单个频道每天`100`次。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/post_schedule.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       requestBody:
         required: true
         content:
@@ -1366,25 +1021,14 @@ paths:
       tags:
         - 日程API
   /channels/{channel_id}/schedules/{schedule_id}:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathScheduleID'
     get:
       summary: 获取日程详情
       description: 获取日程子频道 channel_id 下 schedule_id 指定的的日程的详情。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/get_schedule.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: schedule_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 日程ID
-      
       responses:
         200:
           description: 成功
@@ -1406,20 +1050,6 @@ paths:
         * 要求操作人具有管理频道的权限，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/patch_schedule.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: schedule_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 日程ID
-      
       requestBody:
         required: true
         content:
@@ -1447,20 +1077,6 @@ paths:
         * 要求操作人具有`管理频道的权限`，如果是机器人，则需要将机器人设置为管理员。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/schedule/delete_schedule.html
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-        - name: schedule_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 日程ID
-      
       responses:
         204:
           description: 成功
@@ -1471,6 +1087,8 @@ paths:
       tags:
         - 日程API
   /channels/{channel_id}/audio:
+    parameters:
+      - $ref: '#/components/parameters/PathChannelID'
     post:
       summary: 音频控制
       description: |
@@ -1479,14 +1097,6 @@ paths:
         * 音频接口:仅限音频类机器人才能使用，后续会根据机器人类型自动开通接口权限，现如需调用，需联系平台申请权限。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/audio_control.html'
-      parameters:
-        - name: channel_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 子频道ID
-      
       requestBody:
         required: true
         content:
@@ -1503,20 +1113,14 @@ paths:
       tags:
         - 音频API
   /guilds/{guild_id}/api_permission:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     get:
       summary: 获取频道可用权限列表
       description: |
         用于获取机器人在频道 guild_id 内可以使用的权限列表。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/get_guild_api_permission.html'
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       responses:
         200:
           description: 成功
@@ -1533,6 +1137,8 @@ paths:
       tags:
         - API接口权限API
   /guilds/{guild_id}/api_permission/demand:
+    parameters:
+      - $ref: '#/components/parameters/PathGuildID'
     post:
       summary: 创建频道 API 接口权限授权链接
       description: |
@@ -1541,14 +1147,6 @@ paths:
         * 每天只能在一个频道内发 `3` 条（默认值）频道权限授权链接。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/post_api_permission_demand.html
-      parameters:
-        - name: guild_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: 频道ID
-      
       requestBody:
         required: true
         content:
@@ -1585,7 +1183,6 @@ paths:
       description: 用于获取 WSS 接入地址，通过该地址可建立 websocket 长连接。
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html
-      
       responses:
         200:
           description: 成功
@@ -1612,7 +1209,6 @@ paths:
           * 目前连接数使用情况。
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/shard_url_get.html'
-      
       responses:
         200:
           description: 成功
@@ -1638,18 +1234,8 @@ paths:
         - WebSocket API
   /channels/{channel_id}/messages/{message_id}/reactions/{type}/{id}:
     parameters:
-      - name: channel_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: 子频道ID
-      - name: message_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: 消息ID
+      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: '#/components/parameters/PathMessageID'
       - name: type
         in: path
         required: true
@@ -1663,17 +1249,68 @@ paths:
           type: string
         description: 表情ID
     put:
+      tags:
+        - 表情表态API
       summary: 对消息 `message_id` 进行表情表态
       responses:
         204:
           description: 成功
     delete:
+      tags:
+        - 表情表态API
       summary: 删除自己对消息 `message_id` 的表情表态
       responses:
         204:
           description: 成功
 
+# 对象定义
 components:
+  # path 参数统一定义在这里
+  parameters:
+    PathGuildID:
+      name: guild_id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: string
+      description: 频道ID
+    PathChannelID:
+      name: channel_id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: string
+      description: 子频道ID
+    PathUserID:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 成员ID
+    PathRoleID:
+      name: role_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 身份组ID
+    PathMessageID:
+      name: message_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 消息ID
+    PathScheduleID:
+      name: schedule_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 日程ID
   schemas:
     Guild:
       type: object
@@ -2664,3 +2301,71 @@ components:
         in: header
   links: {}
   callbacks: {}
+
+# 接口分类说明
+tags:
+  - name: 用户API
+    description: 用户相关API集合，包括获取用户详情和用户所在频道列表
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/user/model.html'
+  - name: 频道API
+    description: 频道相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
+  - name: 子频道API
+    description: 子频道相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
+  - name: 成员API
+    description: 频道成员相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/member/model.html'
+  - name: 频道身份组API
+    description: 频道身份组相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/role_model.html'
+  - name: 子频道权限API
+    description: 子频道权限相关API集合
+    externalDocs:
+      url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/model.html
+  - name: 消息API
+    description: 消息相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/message/model.html'
+  - name: 禁言API
+    description: 禁言相关API集合
+    externalDocs:
+      url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_mute.html
+  - name: 私信API
+    description: 私信相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/dms/model.html'
+  - name: 公告API
+    description: ''
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/model.html'
+  - name: 日程API
+    description: 日程相关API
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/model.html'
+  - name: 表情表态API
+    description: 表情表态
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/reaction/model.html'
+  - name: 音频API
+    description: 音频相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/model.html'
+  - name: API接口权限API
+    description: API接口权限API
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/model.html'
+  - name: WebSocket API
+    description: WS相关API集合
+    externalDocs:
+      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html'
+
+# 文档地址
+externalDocs:
+  description: 'Reference: QQ 机器人文档'
+  url: https://bot.q.qq.com/wiki
