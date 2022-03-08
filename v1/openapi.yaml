@@ -1061,6 +1061,44 @@ paths:
       responses:
         204:
           description: 成功
+  /channels/{channel_id}/pins/{message_id}:
+    parameters:
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathMessageID'
+    put:
+      tags:
+        - 精华消息API
+      summary: 将消息 `message_id` 添加到精华消息中
+      responses:
+        200:
+          description: 成功
+          content:
+            applicztion/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PinsMessage'
+    delete:
+      tags:
+        - 精华消息API
+      summary: 将消息 `message_id` 从精华消息中删除
+      responses:
+        204:
+          description: 成功
+  /channels/{channel_id}/pins:
+    parameters:
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+    get:
+      tags: [精华消息API]
+      summary: 获取精华消息列表
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: 'components.yaml#/components/schemas/PinsMessage'
+
+
+#================
 # 接口分类说明
 tags:
   - name: 用户API
@@ -1082,7 +1120,9 @@ tags:
   - name: 私信API
     description: 私信相关API集合
   - name: 公告API
-    description: ''
+    description: 设置公告的接口
+  - name: 精华消息API
+    description: 精华消息接口，也可以认为是置顶消息
   - name: 日程API
     description: 日程相关API
   - name: 表情表态API
@@ -1093,6 +1133,8 @@ tags:
     description: API接口权限API
   - name: WebSocket API
     description: WS相关API集合
+
+
 # 文档地址
 externalDocs:
   description: 'Reference: QQ 机器人文档'

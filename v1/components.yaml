@@ -775,3 +775,15 @@ components:
       type: string
       description: |
         emoji 表情列表，请访问 [表情列表](https://bot.q.qq.com/wiki/develop/api/openapi/emoji/model.html#emoji-%E5%88%97%E8%A1%A8)
+    PinsMessage:
+      type: object
+      description: 精华消息对象
+      properties:
+        guild_id:
+          $ref: '#/components/schemas/BaseGuildID'
+        channel_id:
+          $ref: '#/components/schemas/BaseChannelID'
+        message_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseMessageID'
