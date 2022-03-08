@@ -19,7 +19,7 @@ security:
 paths:
   /guilds/{guild_id}:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     get:
       summary: 获取频道详情
       description: 用于获取 guild_id 指定的频道的详情
@@ -31,7 +31,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Guild'
+                $ref: 'components.yaml#/components/schemas/Guild'
       tags:
         - 频道API
   /users/@me:
@@ -46,7 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: 'components.yaml#/components/schemas/User'
       tags:
         - 用户API
   /users/@me/guilds:
@@ -84,12 +84,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Guild'
+                  $ref: 'components.yaml#/components/schemas/Guild'
       tags:
         - 用户API
   /guilds/{guild_id}/channels:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     get:
       summary: 获取子频道列表
       description: 用于获取 guild_id 指定的频道下的子频道列表
@@ -103,7 +103,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Channel'
+                  $ref: 'components.yaml#/components/schemas/Channel'
       tags:
         - 子频道API
     post:
@@ -121,7 +121,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ChannelCreate'
+              $ref: 'components.yaml#/components/schemas/ChannelCreate'
       responses:
         200:
           description: 成功
@@ -130,12 +130,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Channel'
+                  $ref: 'components.yaml#/components/schemas/Channel'
       tags:
         - 子频道API
   /channels/{channel_id}:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
     get:
       summary: 获取子频道详情
       description: 用于获取 channel_id 指定的子频道的详情
@@ -147,7 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Channel'
+                $ref: 'components.yaml#/components/schemas/Channel'
       tags:
         - 子频道API
     patch:
@@ -165,14 +165,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ChannelUpdate'
+              $ref: 'components.yaml#/components/schemas/ChannelUpdate'
       responses:
         200:
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Channel'
+                $ref: 'components.yaml#/components/schemas/Channel'
       tags:
         - 子频道API
     delete:
@@ -200,7 +200,7 @@ paths:
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/member/get_members.html
       parameters:
-        - $ref: '#/components/parameters/PathGuildID'
+        - $ref: 'components.yaml#/components/parameters/PathGuildID'
         - name: after
           in: query
           required: false
@@ -222,13 +222,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Member'
+                  $ref: 'components.yaml#/components/schemas/Member'
       tags:
         - 成员API
   /guilds/{guild_id}/members/{user_id}:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
-      - $ref: '#/components/parameters/PathUserID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathUserID'
     get:
       summary: 获取成员详情
       description: 用于获取 guild_id 指定的频道中 user_id 对应成员的详细信息
@@ -240,7 +240,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Member'
+                $ref: 'components.yaml#/components/schemas/Member'
       tags:
         - 成员API
     delete:
@@ -270,7 +270,7 @@ paths:
         - 成员API
   /guilds/{guild_id}/roles:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     get:
       summary: 获取频道身份组列表
       description: 用于获取 guild_id指定的频道下的身份组列表
@@ -290,7 +290,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Role'
+                      $ref: 'components.yaml#/components/schemas/Role'
                     description: 频道身份组对象列表
                   role_num_limit:
                     type: string
@@ -334,13 +334,13 @@ paths:
                     type: string
                     description: 频道身份组 ID
                   role:
-                    $ref: '#/components/schemas/GuildRole'
+                    $ref: 'components.yaml#/components/schemas/GuildRole'
       tags:
         - 频道身份组API
   /guilds/{guild_id}/roles/{role_id}:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
-      - $ref: '#/components/parameters/PathRoleID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathRoleID'
     patch:
       summary: 修改频道身份组
       description: |
@@ -379,7 +379,7 @@ paths:
                     type: string
                     description: 频道身份组 ID
                   role:
-                    $ref: '#/components/schemas/GuildRole'
+                    $ref: 'components.yaml#/components/schemas/GuildRole'
       tags:
         - 频道身份组API
     delete:
@@ -396,9 +396,9 @@ paths:
         - 频道身份组API
   /guilds/{guild_id}/members/{user_id}/roles/{role_id}:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
-      - $ref: '#/components/parameters/PathRoleID'
-      - $ref: '#/components/parameters/PathUserID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathRoleID'
+      - $ref: 'components.yaml#/components/parameters/PathUserID'
     put:
       summary: 创建频道身份组成员
       description: |
@@ -445,8 +445,8 @@ paths:
         - 频道身份组API
   /channels/{channel_id}/members/{user_id}/permissions:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathUserID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathUserID'
     get:
       summary: 获取子频道用户权限
       description: |
@@ -461,7 +461,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelPermissions'
+                $ref: 'components.yaml#/components/schemas/ChannelPermissions'
       tags:
         - 子频道权限API
     put:
@@ -492,8 +492,8 @@ paths:
         - 子频道权限API
   /channels/{channel_id}/roles/{role_id}/permissions:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathRoleID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathRoleID'
     get:
       summary: 获取子频道身份组权限
       description: |
@@ -507,7 +507,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelPermissions'
+                $ref: 'components.yaml#/components/schemas/ChannelPermissions'
       tags:
         - 子频道权限API
     put:
@@ -538,8 +538,8 @@ paths:
         - 子频道权限API
   /channels/{channel_id}/messages/{message_id}:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathMessageID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathMessageID'
     get:
       summary: 获取指定消息
       description: 用于获取子频道 channel_id 下的消息 message_id 的详情。
@@ -551,12 +551,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Message'
+                $ref: 'components.yaml#/components/schemas/Message'
       tags:
         - 消息API
   /channels/{channel_id}/messages:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
     post:
       summary: 发送消息
       description: |
@@ -575,14 +575,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageSend'
+              $ref: 'components.yaml#/components/schemas/MessageSend'
       responses:
         200:
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Message'
+                $ref: 'components.yaml#/components/schemas/Message'
       tags:
         - 消息API
   /users/@me/dms:
@@ -617,12 +617,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DMS'
+                  $ref: 'components.yaml#/components/schemas/DMS'
       tags:
         - 私信API
   /dms/{guild_id}/messages:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     post:
       summary: 发送私信
       description: |
@@ -638,7 +638,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MessageSend'
+              $ref: 'components.yaml#/components/schemas/MessageSend'
       responses:
         200:
           description: 成功
@@ -647,12 +647,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Message'
+                  $ref: 'components.yaml#/components/schemas/Message'
       tags:
         - 私信API
   /guilds/{guild_id}/mute:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     patch:
       summary: 禁言全员
       description: |
@@ -682,8 +682,8 @@ paths:
         - 禁言API
   /guilds/{guild_id}/members/{user_id}/mute:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
-      - $ref: '#/components/parameters/PathUserID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathUserID'
     patch:
       summary: 禁言指定成员
       description: |
@@ -712,7 +712,7 @@ paths:
         - 禁言API
   /guilds/{guild_id}/announces:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     post:
       summary: 创建频道公告
       description: |
@@ -740,13 +740,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Announces'
+                $ref: 'components.yaml#/components/schemas/Announces'
       tags:
         - 公告API
   /guilds/{guild_id}/announces/{message_id}:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
-      - $ref: '#/components/parameters/PathMessageID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathMessageID'
     delete:
       summary: 删除频道公告
       description: |
@@ -761,7 +761,7 @@ paths:
         - 公告API
   /channels/{channel_id}/announces:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
     post:
       summary: 创建子频道公告
       description: 用于将子频道 channel_id 内的某条消息设置为子频道公告。
@@ -784,13 +784,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Announces'
+                $ref: 'components.yaml#/components/schemas/Announces'
       tags:
         - 公告API
   /channels/{channel_id}/announces/{message_id}:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathMessageID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathMessageID'
     delete:
       summary: 删除子频道公告
       description: |
@@ -805,7 +805,7 @@ paths:
         - 公告API
   /channels/{channel_id}/schedules:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
     get:
       summary: 获取频道日程列表
       description: |
@@ -830,7 +830,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Schedule'
+                  $ref: 'components.yaml#/components/schemas/Schedule'
       tags:
         - 日程API
     post:
@@ -847,20 +847,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScheduleCreate' 
+              $ref: 'components.yaml#/components/schemas/ScheduleCreate' 
       responses:
         200:
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'
+                $ref: 'components.yaml#/components/schemas/Schedule'
       tags:
         - 日程API
   /channels/{channel_id}/schedules/{schedule_id}:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathScheduleID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathScheduleID'
     get:
       summary: 获取日程详情
       description: 获取日程子频道 channel_id 下 schedule_id 指定的的日程的详情。
@@ -872,7 +872,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'
+                $ref: 'components.yaml#/components/schemas/Schedule'
       tags:
         - 日程API
     patch:
@@ -887,14 +887,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScheduleUpdate'
+              $ref: 'components.yaml#/components/schemas/ScheduleUpdate'
       responses:
         200:
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'
+                $ref: 'components.yaml#/components/schemas/Schedule'
       tags:
         - 日程API
     delete:
@@ -911,7 +911,7 @@ paths:
         - 日程API
   /channels/{channel_id}/audio:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
     post:
       summary: 音频控制
       description: |
@@ -924,7 +924,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AudioControl'
+              $ref: 'components.yaml#/components/schemas/AudioControl'
       responses:
         200:
           description: 成功
@@ -932,7 +932,7 @@ paths:
         - 音频API
   /guilds/{guild_id}/api_permission:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     get:
       summary: 获取频道可用权限列表
       description: |
@@ -947,12 +947,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/APIPermission'
+                  $ref: 'components.yaml#/components/schemas/APIPermission'
       tags:
         - API接口权限API
   /guilds/{guild_id}/api_permission/demand:
     parameters:
-      - $ref: '#/components/parameters/PathGuildID'
+      - $ref: 'components.yaml#/components/parameters/PathGuildID'
     post:
       summary: 创建频道 API 接口权限授权链接
       description: |
@@ -970,7 +970,7 @@ paths:
                   type: string
                   description: 授权链接发送的子频道 id
                 api_identify:
-                  $ref: '#/components/schemas/APIPermissionDemandIdentify'
+                  $ref: 'components.yaml#/components/schemas/APIPermissionDemandIdentify'
                 desc:
                   type: string
                   description: 机器人申请对应的 API 接口权限后可以使用功能的描述
@@ -982,7 +982,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/APIPermissionDemand'
+                  $ref: 'components.yaml#/components/schemas/APIPermissionDemand'
       tags:
         - API接口权限API
   /gateway:
@@ -1028,24 +1028,24 @@ paths:
                     type: integer
                     description: 建议的 shard 数
                   session_start_limit:
-                    $ref: '#/components/schemas/SessionStartLimit'
+                    $ref: 'components.yaml#/components/schemas/SessionStartLimit'
       tags:
         - WebSocket API
   /channels/{channel_id}/messages/{message_id}/reactions/{type}/{id}:
     parameters:
-      - $ref: '#/components/parameters/PathChannelID'
-      - $ref: '#/components/parameters/PathMessageID'
+      - $ref: 'components.yaml#/components/parameters/PathChannelID'
+      - $ref: 'components.yaml#/components/parameters/PathMessageID'
       - name: type
         in: path
         required: true
         schema:
-          type: string
+          $ref: 'components.yaml#/components/schemas/EmojiType'
         description: 表情类型
       - name: id
         in: path
         required: true
         schema:
-          type: string
+          $ref: 'components.yaml#/components/schemas/EmojiID'
         description: 表情ID
     put:
       tags:
@@ -1061,1033 +1061,38 @@ paths:
       responses:
         204:
           description: 成功
-# 对象定义
-components:
-  # path 参数统一定义在这里
-  parameters:
-    PathGuildID:
-      name: guild_id
-      description: 频道ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseGuildID'
-    PathChannelID:
-      name: channel_id
-      description: 子频道ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseChannelID'
-    PathUserID:
-      name: user_id
-      description: 成员ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseUserID'
-    PathRoleID:
-      name: role_id
-      description: 身份组ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseRoleID'
-    PathMessageID:
-      name: message_id
-      description: 消息ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseMessageID'
-    PathScheduleID:
-      name: schedule_id
-      description: 日程ID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/BaseScheduleID'
-  schemas:
-    BaseGuildID:
-      type: string
-      format: int64
-      description: 频道ID
-    BaseChannelID:
-      type: string
-      format: int64
-      description: 子频道ID
-    BaseChannelCategoryID:
-      type: string
-      format: int64
-      description: 子频道分组ID，仅子频道支持分组
-    BaseUserID:
-      type: string
-      format: int64
-      description: 用户ID
-    BaseRoleID:
-      type: string
-      format: int64
-      description: 身份组ID
-    BaseMessageID:
-      type: string
-      description: 消息ID
-    BaseScheduleID:
-      type: string
-      format: int64
-      description: 日程ID
-    Guild:
-      description: |
-        频道对象,频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。
-        请不要理解为真实的 ID
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseGuildID'
-        name:
-          type: string
-          description: 频道名称
-        icon:
-          type: string
-          description: 频道头像地址
-        owner_id:
-          $ref: '#/components/schemas/BaseUserID'
-        owner:
-          type: boolean
-          description: 当前人是否是创建人
-        member_count:
-          type: integer
-          description: 成员数
-          format: int32
-        max_members:
-          type: integer
-          description: 最大成员数
-          format: int32
-        description:
-          type: string
-          description: 描述
-        joined_at:
-          type: string
-          description: 加入时间
-    User:
-      description: |
-        用户对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。
-        请不要理解为真实的 ID
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseUserID'
-        username:
-          type: string
-          description: 用户名
-        avatar:
-          type: string
-          description: 用户头像地址
-        bot:
-          type: boolean
-          description: 是否是机器人
-        union_openid:
-          type: string
-          description: |
-            特殊关联应用的 openid，需要特殊申请并配置后才会返回。如需申请，请联系平台运营人员
-        union_user_account:
-          type: string
-          description: |
-            机器人关联的互联应用的用户信息，与union_openid关联的应用是同一个。
-            如需申请，请联系平台运营人员
-    Channel:
-      description: 子频道对象,子频道对象中所涉及的 ID 类数据，都仅在机器人场景流通，与真实的 ID 无关。请不要理解为真实的 ID
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseChannelID'
-        guild_id:
-          $ref: '#/components/schemas/BaseGuildID'
-        name:
-          type: string
-          description: 子频道名称
-        type:
-          $ref: '#/components/schemas/ChannelType'
-        sub_type:
-          $ref: '#/components/schemas/ChannelSubType'
-        position:
-          type: integer
-          description: 排序值
-        parent_id:
-          type: string
-          description: 所属分组 id，仅对子频道有效，对 子频道分组（ChannelType=4） 无效
-        owner_id:
-          $ref: '#/components/schemas/BaseUserID'
-        private_type:
-          $ref: '#/components/schemas/PrivateType'
-        speak_permission:
-          $ref: '#/components/schemas/SpeakPermission'
-        application_id:
-          $ref: '#/components/schemas/Application'
-    Member:
-      description: 成员对象
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-        nick:
-          type: string
-          description: 用户的昵称
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseRoleID'
-          description: 用户在频道内的身份组ID
-        joined_at:
-          type: string
-          description: '用户加入频道的时间, ISO8601格式'
-    Role:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseRoleID'
-        name:
-          type: string
-          description: 名称
-        color:
-          type: integer
-          description: ARGB的HEX十六进制颜色值转换后的十进制数值
-        hoist:
-          type: integer
-          description: '是否在成员列表中单独展示: 0-否, 1-是'
-        number:
-          type: integer
-          description: 人数
-        member_limit:
-          type: integer
-          description: 成员上限
-          format: uint32
-      description: 频道身份组对象
-    ChannelPermissions:
-      description: |
-        子频道权限对象, 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。
-          * 用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
-          * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制'28671'
-      type: object
-      properties:
-        channel_id:
-          $ref: '#/components/schemas/BaseChannelID'
-        user_id:
-          $ref: '#/components/schemas/BaseUserID'
-        role_id:
-          $ref: '#/components/schemas/BaseRoleID'
-        permissions:
-          $ref: '#/components/schemas/Permissions'
-    Message:
-      type: object
-      description: 消息对象
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseMessageID'
-        channel_id:
-          $ref: '#/components/schemas/BaseChannelID'
-        guild_id:
-          $ref: '#/components/schemas/BaseGuildID'
-        content:
-          type: string
-          description: 消息内容
-        timestamp:
-          type: string
-          description: '消息创建时间,ISO8601 timestamp'
-        edited_timestamp:
-          type: string
-          description: '消息编辑时间,ISO8601 timestamp'
-        mention_everyone:
-          type: boolean
-          description: 是否是@全员消息
-        author:
-          $ref: '#/components/schemas/User'
-        attachments:
-          type: array
-          description: 附件
-          items:
-            $ref: '#/components/schemas/MessageAttachment'
-        embeds:
-          type: array
-          description: embed
-          items:
-            $ref: '#/components/schemas/MessageEmbed'
-        mentions:
-          type: array
-          description: 消息中@的人
-          items:
-            $ref: '#/components/schemas/User'
-        member:
-          $ref: '#/components/schemas/Member'
-        ark:
-          $ref: '#/components/schemas/MessageArk'
-        seq:
-          type: integer
-          description: |
-            用于消息间的排序，seq 在同一子频道中按从先到后的顺序递增，不同的子频道之前消息无法排序
-        message_reference:
-          $ref: "#/components/schemas/MessageReference"
-    MessageReference:
-      type: object
-      description: 引用消息对象
-      properties:
-        message_id:
-          $ref: '#/components/schemas/BaseMessageID'
-        ignore_get_message_error:
-          type: boolean
-          description: 是否忽略获取引用消息详情错误，默认否，仅在发送引用消息的时候使用
-    MessageAttachment:
-      type: object
-      description: 消息附件
-      properties:
-        url:
-          type: string
-          description: 下载地址
-    MessageEmbed:
-      type: object
-      description: embed消息
-      properties:
-        title:
-          type: string
-          description: 标题
-        prompt:
-          type: string
-          description: 消息弹窗内容
-        thumbnail:
-          $ref: '#/components/schemas/MessageEmbedThumbnail'
-        fields:
-          type: array
-          description: embed 字段数据
-          items:
-            $ref: '#/components/schemas/MessageEmbedField'
-    MessageEmbedThumbnail:
-      type: object
-      description: 消息封面
-      properties:
-        url:
-          type: string
-          description: 图片地址
-    MessageEmbedField:
-      type: object
-      description: embed字段
-      properties:
-        name:
-          type: string
-          description: 字段
-    MessageArk:
-      type: object
-      description: ark消息
-      properties:
-        template_id:
-          type: integer
-          description: ark模板id（需要先申请）
-        kv:
-          type: array
-          description: kv值列表
-          items:
-            $ref: '#/components/schemas/MessageArkKv'
-    MessageArkKv:
-      description: ARK消息KV
-      type: object
-      properties:
-        key:
-          type: string
-          description: key
-        value:
-          type: string
-          description: value
-        obj:
-          type: array
-          description: ark obj类型的列表
-          items:
-            $ref: '#/components/schemas/MessageArkObj'
-    MessageArkObj:
-      type: object
-      description: MessageArkObj
-      properties:
-        obj_kv:
-          type: array
-          description: ark objkv列表
-          items:
-            $ref: '#/components/schemas/MessageArkObjKv'
-    MessageArkObjKv:
-      type: object
-      description: MessageArkObjKv
-      properties:
-        key:
-          type: string
-          description: key
-        value:
-          type: string
-          description: value
-    MessageAudited:
-      type: object
-      description: 消息附件
-      properties:
-        url:
-          type: string
-          description: 下载地址
-    DMS:
-      type: object
-      description: 私信会话对象
-      properties:
-        guild_id:
-          type: string
-          description: 私信会话关联的频道ID
-          format: int64
-        channel_id:
-          type: string
-          description: 私信会话关联的子频道ID
-        create_time:
-          type: string
-          description: 创建私信会话时间戳
-    Announces:
-      type: object
-      description: 公告对象
-      properties:
-        guild_id:
-          $ref: '#/components/schemas/BaseGuildID'
-        channel_id:
-          $ref: '#/components/schemas/BaseChannelID'
-        message_id:
-          $ref: '#/components/schemas/BaseMessageID'
-    Schedule:
-      type: object
-      description: 日程对象
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseScheduleID'
-        name:
-          type: string
-          description: 日程名称
-        description:
-          type: string
-          description: 日程描述
-        start_timestamp:
-          type: string
-          description: 日程开始时间戳(ms)
-          format: int64
-        end_timestamp:
-          type: string
-          description: 日程结束时间戳(ms)
-          format: int64
-        creator:
-          $ref: '#/components/schemas/Member'
-        jump_channel_id:
-          description: 日程开始时跳转到的子频道 id
-          type: string
-          format: int64
-        remind_type:
-          $ref: '#/components/schemas/RemindType'
-    Emoji:
-      type: object
-      description: 表情对象
-      properties:
-        id:
-          $ref: '#/components/schemas/EmojiID'
-        type:
-          $ref: '#/components/schemas/EmojiType'
-    MessageReaction:
-      type: object
-      description: 表情表态对象
-      properties:
-        user_id:
-          $ref: '#/components/schemas/BaseUserID'
-        guild_id:
-          $ref: '#/components/schemas/BaseGuildID'
-        channel_id:
-          $ref: '#/components/schemas/BaseChannelID'
-        target:
-          $ref: '#/components/schemas/ReactionTarget'
-        emoji:
-          $ref: '#/components/schemas/Emoji'
-    ReactionTarget:
-      type: object
-      description: 表情表态的目标对象
-      properties:
-        id:
-          type: string
-          description: 表态对象ID
-        type:
-          $ref: '#/components/schemas/ReactionTargetType'
-    AudioControl:
-      type: object
-      description: 语音对象
-      properties:
-        audio_url:
-          type: string
-          description: 音频数据的url status为0时传
-        text:
-          type: string
-          description: 状态文本（比如：简单爱-周杰伦），可选，status为0时传，其他操作不传
-        status:
-          $ref: '#/components/schemas/AudioControlStatus'
-    APIPermission:
-      type: object
-      description: 接口权限对象
-      properties:
-        path:
-          type: string
-          description: 'API 接口名，例如 /guilds/{guild_id}/members/{user_id}'
-        method:
-          type: string
-          description: 请求方法，例如 GET
-        desc:
-          type: string
-          description: API 接口名称，例如 获取频道信
-        auth_status:
-          type: integer
-          description: 授权状态，auth_stats 为 1 时已授权
-    APIPermissionDemand:
-      type: object
-      description: 接口权限需求对象，用于往目标频道的子频道发送申请接口权限消息
-      properties:
-        guild_id:
-          $ref: '#/components/schemas/BaseGuildID'
-        channel_id:
-          $ref: '#/components/schemas/BaseChannelID'
-        api_identify:
-          $ref: '#/components/schemas/APIPermissionDemandIdentify'
-        title:
-          type: string
-          description: 接口权限链接中的接口权限描述信息
-        desc:
-          type: string
-          description: 接口权限链接中的机器人可使用功能的描述信息
-    APIPermissionDemandIdentify:
-      type: object
-      description: 接口权限需求标识对象
-      properties:
-        path:
-          type: string
-          description: 'API 接口名，例如 /guilds/{guild_id}/members/{user_id}'
-        name:
-          type: string
-          description: 请求方法，例如 GET
-    ChannelCreate:
-      type: object
-      description: 创建子频道请求对象
-      properties:
-        name:
-          type: string
-          description: 子频道名称
-        type:
-          $ref: '#/components/schemas/ChannelType'
-        sub_type:
-          $ref: '#/components/schemas/ChannelSubType'
-        position:
-          type: integer
-          description: 排序值
-        parent_id:
-          $ref: '#/components/schemas/BaseChannelCategoryID'
-        private_type:
-          $ref: '#/components/schemas/PrivateType'
-        private_user_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseUserID'
-          description: 子频道私密类型成员 ID
-      required:
-        - name
-        - type
-        - sub_type
-    ChannelUpdate:
-      type: object
-      description: 修子频道请求对象
-      properties:
-        name:
-          type: string
-          description: 子频道名称
-        type:
-          $ref: '#/components/schemas/ChannelType'
-        sub_type:
-          $ref: '#/components/schemas/ChannelSubType'
-        position:
-          type: integer
-          description: 排序值
-        parent_id:
-          $ref: '#/components/schemas/BaseChannelCategoryID'
-        private_type:
-          $ref: '#/components/schemas/PrivateType'
-    GuildRole:
-      type: object
-      description: 频道身份组对象
-      properties:
-        id:
-          $ref: '#/components/schemas/BaseGuildID'
-        name:
-          type: string
-          description: 名称
-        color:
-          type: number
-          description: ARGB 的 HEX 十六进制颜色值转换后的十进制数值（例：4294927682）
-        hoist:
-          type: number
-          description: 是否在成员列表中单独展示, 0-否, 1-是
-        number:
-          type: number
-          description: 人数
-        member_limit:
-          type: number
-          description: 成员上限
-    MessageSend:
-      type: object
-      description: 用户发送消息的数据对象
-      properties:
-        content:
-          type: string
-          description: 消息内容，文本内容，支持内嵌格式
-        embed:
-          $ref: "#/components/schemas/MessageEmbed"
-        ark:
-          $ref: "#/components/schemas/MessageArk"
-        message_reference:
-          $ref: "#/components/schemas/MessageReference"
-        image:
-          type: string
-          description: 图片url地址，平台会转存该图片，用于下发图片消息
-        msg_id:
-          type: string
-          description: 要回复的消息id(Message.id), 在 AT_CREATE_MESSAGE 事件中获取，携带之后此条回复视为被动消息
-      minProperties: 1
-    ScheduleCreate:
-      type: object
-      description: 日程创建对象
-      properties:
-        name:
-          type: string
-          description: 日程名称
-        description:
-          type: string
-          description: 日程描述
-        start_timestamp:
-          type: string
-          description: 日程开始时间戳(ms)
-          format: int64
-        end_timestamp:
-          type: string
-          description: 日程结束时间戳(ms)
-          format: int64
-        creator:
-          $ref: '#/components/schemas/Member'
-        jump_channel_id:
-          type: string
-          description: 日程开始时跳转到的子频道 id
-          format: int64
-        remind_type:
-          type: string
-          description: 日程提醒类型
-      required:
-        - name
-        - start_timestamp
-        - end_timestamp
-        - remind_type
-    ScheduleUpdate:
-      type: object
-      description: 日程更新对象
-      properties:
-        name:
-          type: string
-          description: 日程名称
-        description:
-          type: string
-          description: 日程描述
-        start_timestamp:
-          type: string
-          description: 日程开始时间戳(ms)
-          format: int64
-        end_timestamp:
-          type: string
-          description: 日程结束时间戳(ms)
-          format: int64
-        creator:
-          $ref: '#/components/schemas/Member'
-        jump_channel_id:
-          type: string
-          description: 日程开始时跳转到的子频道 id
-          format: int64
-        remind_type:
-          type: string
-          description: 日程提醒类型
-    SessionStartLimit:
-      type: object
-      description: 创建 Session 限制信息
-      properties:
-        total:
-          type: integer
-          description: 每 24 小时可创建 Session 数
-        remaining:
-          type: integer
-          description: 目前还可以创建的 Session 数
-        reset_after:
-          type: integer
-          description: 重置计数的剩余时间(ms)
-        max_concurrency:
-          type: integer
-          description: 每 5s 可以创建的 Session 数
-    DefaultRoleIDs:
-      type: string
-      description: |
-        统默认生成下列身份组ID:
-          * `1` - 全体成员
-          * `2` - 管理员
-          * `4` - 群主/创建者
-          * `5` - 子频道管理员
-      enum: [1,2,4,5]
-    ChannelType:
-      type: integer
-      description: |
-        子频道类型:
-          * `0` - 文字子频道
-          * `1` - 保留，不可用
-          * `2` - 语音子频道
-          * `3` - 保留，不可用
-          * `4` - 子频道分组
-          * `10005` - 直播子频道
-          * `10006` - 应用子频道
-          * `10007` - 论坛子频道
-          | 注：由于QQ频道还在持续的迭代中，经常会有新的子频道类型增加，文档更新不一定及时，开发者识别 ChannelType 时，请注意相关的未知 ID 的处理。
-      enum: [0,1,2,3,4,10005,10006,10007]
-    ChannelSubType:
-      type: integer
-      description: |
-        子频道子类型:
-          * `0` - 闲聊
-          * `1` - 公告
-          * `2` - 攻略
-          * `3` - 开黑
-          | 目前只有文字子频道具有 ChannelSubType 二级分类，同时二级分类也可能会不断增加，开发者也需要注意对未知 ID 的处理
-      enum: [0,1,2,3]
-    PrivateType:
-      type: integer
-      description: |
-        子频道私密类型:
-          * `0` - 公开频道
-          * `1` - 群主管理员可见
-          * `2` - 群主管理员+指定成员，可使用 修改子频道权限接口 指定成员
-      enum: [0,1,2]
-    SpeakPermission:
-      type: integer
-      description: |
-        子频道发言权限:
-          * `0` - 无效类型
-          * `1` - 所有人
-          * `2` - 群主管理员+指定成员，可使用 修改子频道权限接口 指定成员
-      enum: [0,1,2]
-    Application:
-      type: string
-      description: |
-        应用子频道的应用类型:
-          * `1000000` - 王者开黑大厅
-          * `1000001` - 互动小游戏
-          * `1000010` - 腾讯投票
-          * `1000051` - 飞车开黑大厅
-          * `1000050` - 日程提醒
-          * `1000070` - CoDM 开黑大厅
-          * `1010000` - 和平精英开黑大厅
-        | 由于QQ频道还在持续的迭代中，应用子频道的 application_id 还会持续新增，后续会不定期补充到文档中
-    Permissions:
-      type: string
-      description: |
-        * 用户/角色拥有的(子)频道权限
-        * 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
-        * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制"28671"。
-          | 权限 | 值 | 描述 |
-          | --- | --- | --- |
-          | 可查看子频道 | 0x0000000001 (1 << 0) | 支持`指定成员`可见类型，支持`身份组`可见类型 |
-          | 可管理子频道 | 0x0000000002 (1 << 1) | 创建者、管理员、子频道管理员都具有此权限 |
-          | 可发言子频道 | 0x0000000004 (1 << 2) | 支持`指定成员`发言类型，支持`身份组`发言类型  |
-    RemindType:
-      type: string
-      description: |
-        日程提醒类型:
-          * `0` - 不提醒
-          * `1` - 开始时提醒
-          * `2` - 开始前 5 分钟提醒
-          * `3` - 开始前 15 分钟提醒
-          * `4` - 开始前 30 分钟提醒
-          * `5` - 开始前 60 分钟提醒
-    AudioControlStatus:
-      type: integer
-      description: |
-        播放状态:
-          * `0` - 开始播放操作
-          * `1` - 暂停播放操作
-          * `2` - 继续播放操作
-          * `3` - 停止播放操作
-    ReactionTargetType:
-      type: string
-      description: |
-        表态对象类型:
-          * `0` - 消息
-          * `1` - 帖子
-          * `2` - 评论
-          * `3` - 回复
-    EmojiType:
-      type: integer
-      description: |
-        表情类型 :
-          * `1` - 系统表情
-          * `2` - emoji表情
-    EmojiID:
-      type: string
-      description: |
-        emoji 表情 :
-          本处列表仅包含部分表情，随着时间推移，可能会与线上情况相比有所增减。建议开发者如果要基于表情表态来做逻辑，优先针对已知的QQ系统表情类型（EmojiType=1）来处理。
-    
-          | 表情类型 | 表情ID | 表情含义 |
-          | -------- | ------ | -------- |
-          | 1        | 4      | 得意     |
-          | 1        | 5      | 流泪     |
-          | 1        | 8      | 睡       |
-          | 1        | 9      | 大哭     |
-          | 1        | 10     | 尴尬     |
-          | 1        | 12     | 调皮     |
-          | 1        | 14     | 微笑     |
-          | 1        | 16     | 酷       |
-          | 1        | 21     | 可爱     |
-          | 1        | 23     | 傲慢     |
-          | 1        | 24     | 饥饿     |
-          | 1        | 25     | 困       |
-          | 1        | 26     | 惊恐     |
-          | 1        | 27     | 流汗     |
-          | 1        | 28     | 憨笑     |
-          | 1        | 29     | 悠闲     |
-          | 1        | 30     | 奋斗     |
-          | 1        | 32     | 疑问     |
-          | 1        | 33     | 嘘       |
-          | 1        | 34     | 晕       |
-          | 1        | 38     | 敲打     |
-          | 1        | 39     | 再见     |
-          | 1        | 41     | 发抖     |
-          | 1        | 42     | 爱情     |
-          | 1        | 43     | 跳跳     |
-          | 1        | 49     | 拥抱     |
-          | 1        | 53     | 蛋糕     |
-          | 1        | 60     | 咖啡     |
-          | 1        | 63     | 玫瑰     |
-          | 1        | 66     | 爱心     |
-          | 1        | 74     | 太阳     |
-          | 1        | 75     | 月亮     |
-          | 1        | 76     | 赞       |
-          | 1        | 78     | 握手     |
-          | 1        | 79     | 胜利     |
-          | 1        | 85     | 飞吻     |
-          | 1        | 89     | 西瓜     |
-          | 1        | 96     | 冷汗     |
-          | 1        | 97     | 擦汗     |
-          | 1        | 98     | 抠鼻     |
-          | 1        | 99     | 鼓掌     |
-          | 1        | 100    | 糗大了   |
-          | 1        | 101    | 坏笑     |
-          | 1        | 102    | 左哼哼   |
-          | 1        | 103    | 右哼哼   |
-          | 1        | 104    | 哈欠     |
-          | 1        | 106    | 委屈     |
-          | 1        | 109    | 左亲亲   |
-          | 1        | 111    | 可怜     |
-          | 1        | 116    | 示爱     |
-          | 1        | 118    | 抱拳     |
-          | 1        | 120    | 拳头     |
-          | 1        | 122    | 爱你     |
-          | 1        | 123    | NO       |
-          | 1        | 124    | OK       |
-          | 1        | 125    | 转圈     |
-          | 1        | 129    | 挥手     |
-          | 1        | 144    | 喝彩     |
-          | 1        | 147    | 棒棒糖   |
-          | 1        | 171    | 茶       |
-          | 1        | 173    | 泪奔     |
-          | 1        | 174    | 无奈     |
-          | 1        | 175    | 卖萌     |
-          | 1        | 176    | 小纠结   |
-          | 1        | 179    | doge     |
-          | 1        | 180    | 惊喜     |
-          | 1        | 181    | 骚扰     |
-          | 1        | 182    | 笑哭     |
-          | 1        | 183    | 我最美   |
-          | 1        | 201    | 点赞     |
-          | 1        | 203    | 托脸     |
-          | 1        | 212    | 托腮     |
-          | 1        | 214    | 啵啵     |
-          | 1        | 219    | 蹭一蹭   |
-          | 1        | 222    | 抱抱     |
-          | 1        | 227    | 拍手     |
-          | 1        | 232    | 佛系     |
-          | 1        | 240    | 喷脸     |
-          | 1        | 243    | 甩头     |
-          | 1        | 246    | 加油抱抱 |
-          | 1        | 262    | 脑阔疼   |
-          | 1        | 264    | 捂脸     |
-          | 1        | 265    | 辣眼睛   |
-          | 1        | 266    | 哦哟     |
-          | 1        | 267    | 头秃     |
-          | 1        | 268    | 问号脸   |
-          | 1        | 269    | 暗中观察 |
-          | 1        | 270    | emm      |
-          | 1        | 271    | 吃瓜     |
-          | 1        | 272    | 呵呵哒   |
-          | 1        | 273    | 我酸了   |
-          | 1        | 277    | 汪汪     |
-          | 1        | 278    | 汗       |
-          | 1        | 281    | 无眼笑   |
-          | 1        | 282    | 敬礼     |
-          | 1        | 284    | 面无表情 |
-          | 1        | 285    | 摸鱼     |
-          | 1        | 287    | 哦       |
-          | 1        | 289    | 睁眼     |
-          | 1        | 290    | 敲开心   |
-          | 1        | 293    | 摸锦鲤   |
-          | 1        | 294    | 期待     |
-          | 1        | 297    | 拜谢     |
-          | 1        | 298    | 元宝     |
-          | 1        | 299    | 牛啊     |
-          | 1        | 305    | 右亲亲   |
-          | 1        | 306    | 牛气冲天 |
-          | 1        | 307    | 喵喵     |
-          | 1        | 314    | 仔细分析 |
-          | 1        | 315    | 加油     |
-          | 1        | 318    | 崇拜     |
-          | 1        | 319    | 比心     |
-          | 1        | 320    | 庆祝     |
-          | 1        | 322    | 拒绝     |
-          | 1        | 324    | 吃糖     |
-          | 1        | 326    | 生气     |
-          | 2        | 9728   | ☀ 晴天   |
-          | 2        | 9749   | ☕ 咖啡   |
-          | 2        | 9786   | ☺ 可爱   |
-          | 2        | 10024  | ✨ 闪光   |
-          | 2        | 10060  | ❌ 错误   |
-          | 2        | 10068  | ❔ 问号   |
-          | 2        | 127801 | 🌹 玫瑰   |
-          | 2        | 127817 | 🍉 西瓜   |
-          | 2        | 127822 | 🍎 苹果   |
-          | 2        | 127827 | 🍓 草莓   |
-          | 2        | 127836 | 🍜 拉面   |
-          | 2        | 127838 | 🍞 面包   |
-          | 2        | 127847 | 🍧 刨冰   |
-          | 2        | 127866 | 🍺 啤酒   |
-          | 2        | 127867 | 🍻 干杯   |
-          | 2        | 127881 | 🎉 庆祝   |
-          | 2        | 128027 | 🐛 虫     |
-          | 2        | 128046 | 🐮 牛     |
-          | 2        | 128051 | 🐳 鲸鱼   |
-          | 2        | 128053 | 🐵 猴     |
-          | 2        | 128074 | 👊 拳头   |
-          | 2        | 128076 | 👌 好的   |
-          | 2        | 128077 | 👍 厉害   |
-          | 2        | 128079 | 👏 鼓掌   |
-          | 2        | 128089 | 👙 内衣   |
-          | 2        | 128102 | 👦 男孩   |
-          | 2        | 128104 | 👨 爸爸   |
-          | 2        | 128147 | 💓 爱心   |
-          | 2        | 128157 | 💝 礼物   |
-          | 2        | 128164 | 💤 睡觉   |
-          | 2        | 128166 | 💦 水     |
-          | 2        | 128168 | 💨 吹气   |
-          | 2        | 128170 | 💪 肌肉   |
-          | 2        | 128235 | 📫 邮箱   |
-          | 2        | 128293 | 🔥 火     |
-          | 2        | 128513 | 😁 呲牙   |
-          | 2        | 128514 | 😂 激动   |
-          | 2        | 128516 | 😄 高兴   |
-          | 2        | 128522 | 😊 嘿嘿   |
-          | 2        | 128524 | 😌 羞涩   |
-          | 2        | 128527 | 😏 哼哼   |
-          | 2        | 128530 | 😒 不屑   |
-          | 2        | 128531 | 😓 汗     |
-          | 2        | 128532 | 😔 失落   |
-          | 2        | 128536 | 😘 飞吻   |
-          | 2        | 128538 | 😚 亲亲   |
-          | 2        | 128540 | 😜 淘气   |
-          | 2        | 128541 | 😝 吐舌   |
-          | 2        | 128557 | 😭 大哭   |
-          | 2        | 128560 | 😰 紧张   |
-          | 2        | 128563 | 😳 瞪眼   |
-  securitySchemes:
-      bot_auth:
-        description: 机器人 API 鉴权，格式为 `Bot {appID}.{appToken}`
-        type: apiKey
-        name: Authorization
-        in: header
-  responses:
-    401:
-      description: |
-        请求异常，请检查参数传递是否正确
-    403:
-      description: |
-        权限检查失败，请检查如下几点：
-          - 头部的 token 是否正确
-          - 频道主是否授予了机器人对应的权限
-          - 频道ID等ID是否正确
-    500:
-      description: |
-        内部逻辑处理失败，大部分情况下可以重试，如果重试仍然失败，请检查参数是否正确
-    502:
-      description: |
-        内部处理超时，请稍后重试
 # 接口分类说明
 tags:
   - name: 用户API
     description: 用户相关API集合，包括获取用户详情和用户所在频道列表
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/user/model.html'
   - name: 频道API
     description: 频道相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
   - name: 子频道API
     description: 子频道相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/model.html'
   - name: 成员API
     description: 频道成员相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/member/model.html'
   - name: 频道身份组API
     description: 频道身份组相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/guild/role_model.html'
   - name: 子频道权限API
     description: 子频道权限相关API集合
-    externalDocs:
-      url: https://bot.q.qq.com/wiki/develop/api/openapi/channel_permissions/model.html
   - name: 消息API
     description: 消息相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/message/model.html'
   - name: 禁言API
     description: 禁言相关API集合
-    externalDocs:
-      url: https://bot.q.qq.com/wiki/develop/api/openapi/guild/patch_guild_mute.html
   - name: 私信API
     description: 私信相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/dms/model.html'
   - name: 公告API
     description: ''
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/model.html'
   - name: 日程API
     description: 日程相关API
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/schedule/model.html'
   - name: 表情表态API
     description: 表情表态
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/reaction/model.html'
   - name: 音频API
     description: 音频相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/audio/model.html'
   - name: API接口权限API
     description: API接口权限API
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/api_permissions/model.html'
   - name: WebSocket API
     description: WS相关API集合
-    externalDocs:
-      url: 'https://bot.q.qq.com/wiki/develop/api/openapi/wss/url_get.html'
-
 # 文档地址
 externalDocs:
   description: 'Reference: QQ 机器人文档'
