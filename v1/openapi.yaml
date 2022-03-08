@@ -1097,3 +1097,28 @@ tags:
 externalDocs:
   description: 'Reference: QQ 机器人文档'
   url: https://bot.q.qq.com/wiki
+
+# 对象定义，parameters 和 schemes 在独立文件中定义
+components:
+  securitySchemes:
+    bot_auth:
+      description: 机器人 API 鉴权，格式为 `Bot {appID}.{appToken}`
+      type: apiKey
+      name: Authorization
+      in: header
+  responses:
+    401:
+      description: |
+        请求异常，请检查参数传递是否正确
+    403:
+      description: |
+        权限检查失败，请检查如下几点：
+          - 头部的 token 是否正确
+          - 频道主是否授予了机器人对应的权限
+          - 频道ID等ID是否正确
+    500:
+      description: |
+        内部逻辑处理失败，大部分情况下可以重试，如果重试仍然失败，请检查参数是否正确
+    502:
+      description: |
+        内部处理超时，请稍后重试
