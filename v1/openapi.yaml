@@ -1070,16 +1070,16 @@ components:
       in: path
       required: true
       schema:
-        type: integer
-        format: string
+        type: string
+        format: int64
       description: 频道ID
     PathChannelID:
       name: channel_id
       in: path
       required: true
       schema:
-        type: integer
-        format: string
+        type: string
+        format: int64
       description: 子频道ID
     PathUserID:
       name: user_id
@@ -1087,6 +1087,7 @@ components:
       required: true
       schema:
         type: string
+        format: int64
       description: 成员ID
     PathRoleID:
       name: role_id
@@ -1094,6 +1095,7 @@ components:
       required: true
       schema:
         type: string
+        format: int64
       description: 身份组ID
     PathMessageID:
       name: message_id
@@ -1108,6 +1110,7 @@ components:
       required: true
       schema:
         type: string
+        format: int64
       description: 日程ID
   schemas:
     Guild:
