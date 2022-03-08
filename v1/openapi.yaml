@@ -1108,6 +1108,8 @@ tags:
     description: 垂直应用类接口，如日程功能
   - name: Audio
     description: 音频相关API集合
+  - name: Forums
+    description: 论坛类接口，操作论坛帖子，回复等
   - name: BotAPI
     description: 机器人提供的基础接口
 
