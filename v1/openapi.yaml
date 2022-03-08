@@ -8,12 +8,12 @@ info:
     name: 加入开发者频道
     url: https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&inviteCode=1MVRbV&from=246610&biz=ka
 servers:
-  - url: https://api.sgroup.qq.com
-    description: 正式环境
   - url: https://sandbox.api.sgroup.qq.com
     description: |
       沙箱环境
       沙箱环境调用 openapi 仅能操作沙箱频道
+  - url: https://api.sgroup.qq.com
+    description: 正式环境
 security:
   - bot_auth: []
 paths:
