@@ -1094,8 +1094,7 @@ components:
       in: path
       required: true
       schema:
-        type: string
-        format: int64
+        $ref: '#/components/schemas/RoleID'
       description: 身份组ID
     PathMessageID:
       name: message_id
@@ -1269,8 +1268,7 @@ components:
           type: string
           description: 用户ID
         role_id:
-          type: string
-          description: 身份组ID,用户 id 或 身份组 id，只会返回其中之一
+          $ref: '#/components/schemas/RoleID'
         permissions:
           $ref: '#/components/schemas/Permissions'
   
@@ -1278,6 +1276,10 @@ components:
         子频道权限对象, 权限是QQ频道管理频道成员的一种方式，管理员可以对不同的人、不同的子频道设置特定的权限。
           * 用户的权限包括个人权限和身份组权限两部分，最终生效是取两种权限的并集。
           * 权限使用位图表示，传递时序列化为十进制数值字符串。如权限值为0x6FFF，会被序列化为十进制'28671'
+    RoleID:
+      type: string
+      format: int64
+      description: 身份组ID
     Message:
       type: object
       description: 消息对象
