@@ -760,6 +760,7 @@ paths:
     post:
       summary: 创建子频道公告
       description: 用于将子频道 channel_id 内的某条消息设置为子频道公告。
+      deprecated: true
       externalDocs:
         url: https://bot.q.qq.com/wiki/develop/api/openapi/announces/post_channel_announces.html
       requestBody:
@@ -791,6 +792,7 @@ paths:
       description: |
         用于删除子频道 channel_id 下 message_id 指定的子频道公告。
         * message_id 有值时，会校验 message_id 合法性，若不校验校验 message_id，请将 message_id 设置为 all。
+      deprecated: true
       externalDocs:
         url: 'https://bot.q.qq.com/wiki/develop/api/openapi/announces/delete_channel_announces.html'
       responses:
@@ -1046,6 +1048,8 @@ paths:
       tags:
         - Messages
       summary: 对消息 `message_id` 进行表情表态
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/reaction/put_message_reaction.html
       responses:
         204:
           description: 成功
@@ -1053,6 +1057,8 @@ paths:
       tags:
         - Messages
       summary: 删除自己对消息 `message_id` 的表情表态
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/reaction/delete_own_message_reaction.html
       responses:
         204:
           description: 成功
@@ -1064,6 +1070,8 @@ paths:
       tags:
         - Messages
       summary: 将消息 `message_id` 添加到精华消息中
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/pins/put_pins_message.html
       responses:
         200:
           description: 成功
@@ -1075,6 +1083,8 @@ paths:
       tags:
         - Messages
       summary: 将消息 `message_id` 从精华消息中删除
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/pins/delete_pins_message.html
       responses:
         204:
           description: 成功
@@ -1084,6 +1094,8 @@ paths:
     get:
       tags: [Messages]
       summary: 获取精华消息列表
+      externalDocs:
+        url: https://bot.q.qq.com/wiki/develop/api/openapi/pins/get_pins_message.html
       responses:
         200:
           description: 成功
