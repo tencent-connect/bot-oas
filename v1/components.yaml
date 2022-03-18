@@ -74,6 +74,10 @@ components:
     BaseMessageID:
       type: string
       description: 消息ID
+    BaseSequenceInChannel:
+      type: string
+      description: |
+        子频道消息 seq，用于消息间的排序，seq 在同一子频道中按从先到后的顺序递增，不同的子频道之间消息无法排序
     BaseScheduleID:
       type: string
       format: int64
@@ -267,6 +271,8 @@ components:
           type: integer
           description: |
             用于消息间的排序，seq 在同一子频道中按从先到后的顺序递增，不同的子频道之前消息无法排序
+        seq_in_channel:
+          $ref: "#/components/schemas/BaseSequenceInChannel"
         message_reference:
           $ref: "#/components/schemas/MessageReference"
     MessageReference:
@@ -364,11 +370,28 @@ components:
           description: value
     MessageAudited:
       type: object
-      description: 消息附件
+      description: 消息审核对象
       properties:
-        url:
+        audit_id:
           type: string
-          description: 下载地址
+          description: 消息审核 id
+        message_id:
+          type: string
+          description: 消息 id，只有审核通过事件才会有值
+        guild_id:
+          type: string
+          description: 频道 id
+        channel_id:
+          type: string
+          description: 子频道 id
+        audit_time:
+          type: string
+          description: '消息审核时间,ISO8601 timestamp'
+        create_time:
+          type: string
+          description: '消息创建时间,ISO8601 timestamp'
+        seq_in_channel:
+          $ref: "#/components/schemas/BaseSequenceInChannel"
     DMS:
       type: object
       description: 私信会话对象
