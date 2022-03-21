@@ -186,6 +186,7 @@ components:
           description: 用户在频道内的身份组ID
         joined_at:
           type: string
+          format: date-time
           description: '用户加入频道的时间, ISO8601格式'
     Role:
       type: object
@@ -239,9 +240,11 @@ components:
           description: 消息内容
         timestamp:
           type: string
+          format: date-time
           description: '消息创建时间,ISO8601 timestamp'
         edited_timestamp:
           type: string
+          format: date-time
           description: '消息编辑时间,ISO8601 timestamp'
         mention_everyone:
           type: boolean
@@ -386,9 +389,11 @@ components:
           description: 子频道 id
         audit_time:
           type: string
+          format: date-time
           description: '消息审核时间,ISO8601 timestamp'
         create_time:
           type: string
+          format: date-time
           description: '消息创建时间,ISO8601 timestamp'
         seq_in_channel:
           $ref: "#/components/schemas/BaseSequenceInChannel"
@@ -405,6 +410,7 @@ components:
           description: 私信会话关联的子频道ID
         create_time:
           type: string
+          format: int64
           description: 创建私信会话时间戳
     Announces:
       type: object
