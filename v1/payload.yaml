@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: QQ 机器人 OpenAPI 对象定义
+  version: v1.0.0
+paths:
+  # 这里只是放置个 path 配置避免格式检查报错
+# 对象定义
+components:
+  schemas:
+    Hello:
+      type: object
+      description: 在事件通知时候所使用的数据格式
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 10
+        d:
+          type: object
+          description: 事件数据，根据不同的 op 有可能是对象，也有可能是整数
+          properties:
+            heartbeat_interval: # 心跳间隔
+              type: integer
+              description: 心跳间隔，单位秒
+      example: |
+        {
+          "op": 10,
+          "d": {
+            "heartbeat_interval": 45000
+          }
+        }
+    Identify:
+      type: object
+      description: 在事件通知时候所使用的数据格式
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 2
+        d:
+          type: object
+          description: 事件数据，根据不同的 op 有可能是对象，也有可能是整数
+          properties:
+            token:
+              type: string
+              description: 机器人 token，格式为：`Bot {appid}.{app_token}`
+            intents:
+              type: integer
+              description: 是此次连接所需要接收的事件意图
+            shard:
+              type: array
+              description: |
+                该参数是用来进行水平分片的。该参数是个拥有两个元素的数组。
+                
+                例如：[0,4]，代表分为四个片，当前链接是第 0 个片，业务稍后应该继续建立 shard 为[1,4],[2,4],
+                [3,4]的链接，才能完整接收事件。
+            properties:
+              type: object
+              description: 目前无实际作用，可以按照自己的实际情况填写，也可以留空
+      example: |
+        {
+          "op": 2,
+          "d": {
+            "token": "Bot {my_appid}.{my_app_token}",
+            "intents": 513,
+            "shard": [0, 4],
+            "properties": {
+              "$os": "linux",
+              "$browser": "my_library",
+              "$device": "my_library"
+            }
+          }
+        }
+    Ready:
+      type: object
+      description: 鉴权成功之后下发的事件
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 0
+        s:
+          type: integer
+          description: 事件seq
+        t:
+          type: string
+          description: 事件类型
+          default: READY
+        d:
+          type: object
+          properties:
+            version:
+              type: integer
+              description: 版本号
+            session_id:
+              type: string
+              description: 会话 ID
+            user:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: 机器人ID
+                username:
+                  type: string
+                  description: 机器人名称
+            shard:
+              type: array
+              description: 当前连接处理的 shard 信息
+      example: |
+        {
+          "op": 0,
+          "s": 1,
+          "t": "READY",
+          "d": {
+            "version": 1,
+            "session_id": "082ee18c-0be3-491b-9d8b-fbd95c51673a",
+            "user": {
+              "id": "6158788878435714165",
+              "username": "群pro测试机器人",
+              "bot": true
+            },
+            "shard": [0, 0]
+          }
+        }
+    Heartbeat:
+      type: object
+      description: 心跳事件
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 1
+        d:
+          type: integer
+          description: 上次处理过的事件 seq
+      example: |
+        {
+          "op": 1,
+          "d": 251
+        }
+    HeartbeatAck:
+      type: object
+      description: 心跳事件
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 11
+      example: |
+        {
+          "op": 11
+        }
+    Resume:
+      type: object
+      description: 恢复连接
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 6
+        d:
+          type: object
+          description: resume 信息
+          properties:
+            token:
+              type: string
+              description: 机器人 token，格式为：`Bot {appid}.{app_token}`
+            session_id:
+              type: string
+              description: 希望重连的会话 ID
+            seq:
+              type: integer
+              description: 重连后希望从哪个 seq 开始补发事件
+      example: |
+        {
+          "op": 6,
+          "d": {
+            "token": "Bot {my_appid}.{my_app_token}",
+            "session_id": "082ee18c-0be3-491b-9d8b-fbd95c51673a",
+            "seq": 1337
+          }
+        }
+    Reconnect:
+      type: object
+      description: 服务端通知客户端重新连接
+      properties:
+        op:
+          type: integer
+          description: 操作类型
+          default: 7
+      example: |
+        {
+          "op": 7
+        }

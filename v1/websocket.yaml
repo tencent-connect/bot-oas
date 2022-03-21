@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: QQ 机器人 事件通知中心
+  description: |
+    QQ 频道机器人通过开放的平台承载机器人的定制化功能，让开发者获得更畅快的开发体验。
+    
+    当前文档描述 websocekt 的使用方法。
+    
+    **请注意**，当前文档中的 Operation `POST` 代表客户端发送该事件。`GET` 代表客户端接收该事件。
+  version: v1.0.0
+  contact:
+    name: 加入开发者频道
+    url: https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&inviteCode=1MVRbV&from=246610&biz=ka
+servers:
+  - url: wss://sandbox.api.sgroup.qq.com
+    description: |
+      沙箱环境，仅接收沙箱频道事件
+  - url: wss://api.sgroup.qq.com
+    description: 正式环境
+paths:
+  /hello:
+    summary: |
+      连接成功
+    description: |
+      进行 websocket 连接成功，就会返回 `OpCode 10 Hello` 消息。这个消息主要的内容是心跳周期，单位毫秒(milliseconds)。
+    get:
+      responses:
+        default:
+          description: |
+            客户端接收到的消息
+          content:
+            application/json:
+              schema:
+                $ref: "payload.yaml#/components/schemas/Hello"
+  /identify:
+    summary: 鉴权连接
+    description: |
+      建立 websocket 连接之后，就需要进行鉴权了，需要客户端发送一个 `OpCode 2 Identify` 消息。
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "payload.yaml#/components/schemas/Identify"
+      responses:
+        default:
+          description:
+            发送成功后服务端会下发一个 `OpCode 0 Ready` 消息。参考 Ready 事件的描述处理。
+  /ready:
+    summary: 鉴权成功事件
+    description: |
+      当鉴权成功后，服务端会下发一个 `OpCode 0 Ready` 消息。
+    get:
+      responses:
+        default:
+          description: |
+            客户端接收到的消息
+          content:
+            application/json:
+              schema:
+                $ref: "payload.yaml#/components/schemas/Ready"
+  /resume:
+    summary: 重新连接
+    description: |
+      有很多原因都会导致连接断开，断开之后短时间内重连会补发中间遗漏的事件，以保障业务逻辑的正确性。
+      
+      重连不需要发送 Identify 请求。在连接到 Gateway 之后，需要发送 `Opcode 6 Resume` 消息。
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "payload.yaml#/components/schemas/Resume"
+      responses:
+        default:
+          description: |
+            恢复成功之后，就开始补发遗漏事件，所有事件补发完成之后，会下发一个 Resumed Event，结构如下
+            ```json
+            {
+              "op": 0,
+              "s": 2002,
+              "t": "RESUMED",
+              "d": ""
+            }
+            ```
+  /reconnect:
+    summary: 重新连接
+    description: |
+    get:
+      responses:
+        default:
+          description:
+            1
+          content:
+            application/json:
+              schema:
+                $ref: "payload.yaml#/components/schemas/Reconnect"
+
+# 文档地址
+externalDocs:
+  description: 'Reference: QQ 机器人文档'
+  url: https://bot.q.qq.com/wiki
