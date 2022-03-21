@@ -13,4 +13,4 @@ https://app.swaggerhub.com/apis/QQ_channel/QQ_bot/1.0.0
 
 ## Reference
 
-[OpenAPI Specification Documents](https://swagger.io/specification/)
+[OpenAPI Specification Documents](https://spec.openapis.org/oas/v3.1.0#openapi-specification)
